@@ -1,0 +1,2 @@
+# The manifest hashes committed bytes; preserve them across Windows checkouts.
+frontend/public/static-data/** text eol=lf
