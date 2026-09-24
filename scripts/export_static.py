@@ -22,6 +22,7 @@ GRAINS = ('day', 'week', 'month')
 PRESETS = (
     dict(id='july-2018', label='2018 年 7 月 · 全部品类与地区', start='2018-07-01', end='2018-07-31', category='', state=''),
     dict(id='june-2018', label='2018 年 6 月 · 全部品类与地区', start='2018-06-01', end='2018-06-30', category='', state=''),
+    dict(id='feb-jul-2018', label='2018 年 2–7 月 · 长观察窗 / 全部', start='2018-02-01', end='2018-07-31', category='', state=''),
     dict(id='july-2018-sp', label='2018 年 7 月 · 圣保罗州', start='2018-07-01', end='2018-07-31', category='', state='SP'),
     dict(id='july-2018-cama-sp', label='2018 年 7 月 · 床上与卫浴 / 圣保罗州', start='2018-07-01', end='2018-07-31', category='cama_mesa_banho', state='SP'),
     dict(id='week-2018-07-23', label='2018 年 7 月 23–29 日 · 完整周', start='2018-07-23', end='2018-07-29', category='', state='', latest_week=True),
@@ -39,7 +40,7 @@ ALLOWED_TOP_LEVEL = {
     'customers': frozenset({'meta', 'summary', 'frequency_distribution', 'distribution', 'segments'}),
     'reports': frozenset({'meta', 'current', 'previous', 'delta_cents', 'revenue_change_rate',
                           'daily_revenue_cents', 'previous_daily_revenue_cents', 'decomposition',
-                          'contributions', 'anomalies', 'delivery', 'limitations', 'rendered'}),
+                          'contributions', 'anomalies', 'delivery', 'limitations', 'investigations', 'rendered'}),
 }
 
 
@@ -94,6 +95,11 @@ def check_consistency(options, preset, dashboards, customer, report):
         assert (first['kpis']['revenue_cents'], first['kpis']['order_count']) == (86795346, 6159)
     if preset['id'] == 'july-2018-cama-sp':
         assert (first['kpis']['revenue_cents'], first['kpis']['order_count']) == (2710604, 262)
+    if preset['id'] == 'feb-jul-2018':
+        # The long window must demonstrate both sides of the R=30 threshold.
+        assert customer['summary']['customer_count'] == 38560
+        assert sum(group['customer_count'] for group in customer['segments'] if group['key'].startswith('0')) == 32460
+        assert sum(group['customer_count'] for group in customer['segments'] if group['key'].startswith('1')) == 6100
 
 
 def export(db, output=DEFAULT_OUTPUT):

@@ -1,6 +1,7 @@
 """Public Pages artifact stays aggregate-only and matches its own data contract."""
 import hashlib
 import json
+from datetime import date
 from pathlib import Path
 
 import pytest
@@ -31,6 +32,9 @@ def test_committed_demo_files_are_bounded_aggregate_snapshots():
     assert manifest['preset_count'] == len(PRESETS) == len(options['static_presets'])
     assert [x['id'] for x in PRESETS] == [x['id'] for x in options['static_presets']]
     assert len(manifest['files']) == 1 + len(PRESETS) * 5
+    assert len({preset['id'] for preset in PRESETS}) == len(PRESETS)
+    assert any((date.fromisoformat(preset['end']) - date.fromisoformat(preset['start'])).days >= 90
+               for preset in PRESETS)
     assert all('/orders/' not in key and not key.endswith('orders.json') for key in manifest['files'])
     for relative, digest in manifest['files'].items():
         path = SNAPSHOTS / relative
@@ -58,4 +62,12 @@ def test_committed_demo_files_are_bounded_aggregate_snapshots():
         require_aggregate_shape('reports', report)
         assert customer['summary']['order_count'] == report['current']['order_count'] == kpis['order_count']
         assert customer['summary']['customer_count'] == kpis['customer_count']
+        assert all(customer['meta'][key] == report['meta'][key] == preset[key]
+                   for key in ('start', 'end', 'category', 'state'))
+        assert sum(group['customer_count'] for group in customer['segments']) == customer['summary']['customer_count']
         assert len(report['rendered']['html']) and len(report['rendered']['markdown'])
+    long_window = json.loads((SNAPSHOTS / 'feb-jul-2018' / 'customers.json').read_text(encoding='utf-8'))
+    older = sum(group['customer_count'] for group in long_window['segments'] if group['key'].startswith('0'))
+    recent = sum(group['customer_count'] for group in long_window['segments'] if group['key'].startswith('1'))
+    assert (older, recent) == (32460, 6100)
+    assert long_window['distribution']['recency_days']['max'] > 30

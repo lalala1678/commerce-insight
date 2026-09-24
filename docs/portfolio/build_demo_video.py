@@ -46,77 +46,91 @@ MID = font(28, bold=True)
 
 SLIDES = [
     {
-        "seconds": 10,
-        "title": "电商经营分析与诊断平台",
-        "caption": "从原始订单到可信指标，再到可追溯的经营建议。",
+        "seconds": 8,
+        "title": "商析：从变化到核查任务",
+        "caption": "Olist 巴西多卖家平台历史样本；非商业作品集，无声截图演示。",
         "kind": "title",
     },
     {
-        "seconds": 23,
+        "seconds": 17,
         "title": "01 经营概览",
-        "caption": "全量 99,441 笔原始订单；2018 年 7 月最终已交付 6,159 单，商品金额 R$ 867,953.46。",
+        "caption": "全量原始订单 99,441 笔；2018 年 7 月已交付 6,159 单，商品金额 R$ 867,953.46。",
         "image": DOCS / "core" / "overview-desktop.png",
         "y": (120, 210),
     },
     {
-        "seconds": 18,
+        "seconds": 12,
         "title": "02 统一指标口径",
-        "caption": "最终已交付、按下单日归属、商品金额不含运费。日期筛选后，趋势与贡献同步重算。",
+        "caption": "最终已交付、按下单日归属、商品金额不含运费；订单、品类和地区共用筛选。",
         "image": DOCS / "core" / "overview-desktop.png",
         "y": (475, 700),
     },
     {
-        "seconds": 20,
+        "seconds": 14,
         "title": "03 商品分析",
         "caption": "商品排名来自观察期成交；没有库存与上架数据，因此不把低销量写成库存滞销。",
         "image": DOCS / "core" / "products-desktop.png",
         "y": (450, 700),
     },
     {
-        "seconds": 16,
+        "seconds": 12,
         "title": "04 履约与评价",
         "caption": "缺送达日期仍计入销售，却不进入延迟率分母；缺评价不会被记作零分。",
         "image": DOCS / "core" / "products-desktop.png",
         "y": (1150, 1370),
     },
     {
-        "seconds": 20,
-        "title": "05 客户分析",
-        "caption": "7 月购买客户 6,100 位，窗口内复购 58 位；RFM 以历史截止日分为八组。",
-        "image": DOCS / "customers" / "desktop.png",
-        "y": (430, 660),
+        "seconds": 18,
+        "title": "05 客户分析：拉长观察窗",
+        "caption": "2018 年 2–7 月购买客户 38,560 位，窗口复购 747 位，复购率约 1.94%。",
+        "image": HERE / "customer-long-window.png",
+        "y": (420, 500),
     },
     {
-        "seconds": 24,
-        "title": "06 销售变化案例",
+        "seconds": 14,
+        "title": "06 RFM：真正展示远期分组",
+        "caption": "同一长窗中 32,460 位购买客户距窗口末次购买＞30 天；八组互斥且覆盖窗口购买者。",
+        "image": HERE / "customer-long-window.png",
+        "y": (1020, 1230),
+    },
+    {
+        "seconds": 18,
+        "title": "07 七月销售变化案例",
         "caption": "7 月总商品金额较 6 月增加 1.39%，但日均商品金额下降 1.88%；不能只看月总额。",
         "image": DOCS / "reports" / "desktop.png",
         "y": (440, 640),
     },
     {
-        "seconds": 16,
-        "title": "07 贡献拆解",
+        "seconds": 11,
+        "title": "08 贡献拆解",
         "caption": "先拆订单量与客单价，再看品类和客户州贡献；算术分解不等于经营动作的因果效果。",
         "image": DOCS / "reports" / "desktop.png",
         "y": (900, 1100),
     },
     {
-        "seconds": 18,
-        "title": "08 履约诊断案例",
-        "caption": "延迟组有评价订单均分 2.755，按期组 4.370；样本与结构不同，只能提示后续核查。",
-        "image": DOCS / "reports" / "desktop.png",
-        "y": (1830, 1980),
+        "seconds": 22,
+        "title": "09 把销售发现转成核查任务",
+        "caption": "2–7 月金额差额 R$ 1,063,516.76；事实、证据、待验证假设和验证指标分开呈现。",
+        "image": HERE / "investigation-workflow.png",
+        "y": (800, 950),
     },
     {
-        "seconds": 10,
-        "title": "09 数据到页面的核对链",
+        "seconds": 17,
+        "title": "10 履约核查：相关不等于因果",
+        "caption": "长窗延迟组有评分 3,213 单、均分 2.181；按期组 35,906 单、均分 4.294。",
+        "image": HERE / "investigation-workflow.png",
+        "y": (1550, 1750),
+    },
+    {
+        "seconds": 11,
+        "title": "11 数据到页面的核对链",
         "caption": "事务导入可重跑，金额与订单数经过原始 CSV、MySQL、接口与页面独立核对。",
         "kind": "architecture",
     },
     {
-        "seconds": 5,
-        "title": "历史数据截图演示",
-        "caption": "数据来源：Olist；许可 CC BY-NC-SA 4.0。建议尚未实施，不主张因果收益。",
+        "seconds": 6,
+        "title": "无声历史截图演示",
+        "caption": "Olist · CC BY-NC-SA 4.0。核查记录仅本机暂存，尚无商家采纳或收益证据。",
         "kind": "end",
     },
 ]
@@ -198,7 +212,7 @@ def frame(slide: dict, within: float, elapsed: float) -> Image.Image:
     for line in lines[:2]:
         draw.text((69, y), line, fill=WHITE, font=CAPTION)
         y += 35
-    draw.text((46, 682), "Olist · CC BY-NC-SA 4.0 · 历史数据截图演示", fill=MUTED, font=SMALL)
+    draw.text((46, 682), "Olist · CC BY-NC-SA 4.0 · 无声历史截图演示", fill=MUTED, font=SMALL)
     draw.text((1097, 682), f"{math.floor(elapsed):02d} / 180 秒", fill=MUTED, font=SMALL)
     draw.rectangle((0, 714, round(WIDTH * min(elapsed / 180, 1)), 719), fill=TEAL)
     return canvas

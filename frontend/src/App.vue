@@ -189,7 +189,7 @@ onBeforeUnmount(() => { dashboardAbort?.abort(); optionsAbort?.abort(); ordersAb
       <p class="workspace-label">经营工作台</p>
       <nav aria-label="主导航"><button v-for="(item, index) in navigation" :key="item.label" :class="{ active: page === index }" :aria-current="page === index ? 'page' : undefined" @click="page = index"><el-icon><component :is="item.icon" /></el-icon><span>{{ item.label }}</span><el-icon class="nav-arrow"><ArrowRight /></el-icon></button></nav>
       <div class="sidebar-context"><span class="context-line"></span><p>每个数字，都有来处。</p><small>从原始订单到经营指标<br>用一致的口径看清业务</small></div>
-      <div class="sidebar-bottom"><div><span class="status-dot"></span> Olist 公开数据</div><p>{{ staticDemo ? '历史数据静态演示' : '历史经营分析 · 本地后台' }}</p><a href="https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce" target="_blank" rel="noreferrer">数据来源与许可 ↗</a></div>
+      <div class="sidebar-bottom"><div><span class="status-dot"></span> Olist 公开数据</div><p>{{ staticDemo ? '非商业作品集 · 历史演示' : '历史经营分析 · 本地后台' }}</p><a href="https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce" target="_blank" rel="noreferrer">数据来源与许可 ↗</a></div>
     </aside>
     <div class="body">
       <header class="topbar"><div>经营工作台 <el-icon><ArrowRight /></el-icon><strong>{{ navigation[page].label }}</strong></div><span class="mode-badge"><i></i>{{ staticDemo ? '历史数据 · 静态演示' : '历史数据 · 本地分析服务' }}</span></header>
@@ -205,7 +205,7 @@ onBeforeUnmount(() => { dashboardAbort?.abort(); optionsAbort?.abort(); ordersAb
           <div class="filter-actions"><el-button type="primary" native-type="submit" :icon="Refresh" :disabled="!options">{{ loading ? '重新查询' : '应用筛选' }}</el-button><button type="button" class="reset-button" :disabled="!options" @click="resetFilters">重置</button></div>
           <p v-if="validation" class="validation" role="alert">{{ validation }}</p>
         </form>
-        <el-alert v-if="staticDemo" title="历史数据静态演示：仅提供预先导出的 6 个筛选范围；指标来自 Olist 公开历史数据。订单级查询需运行本地后台。" type="info" :closable="false" show-icon class="static-banner" />
+        <el-alert v-if="staticDemo" title="作品集原型：Olist 巴西多卖家平台历史样本，仅提供已导出的筛选范围；订单级查询需运行本地后台，经营建议尚未经商家验证。" type="info" :closable="false" show-icon class="static-banner" />
         <div class="period-line"><span><span class="small-dot"></span>{{ loading ? '正在查询' : '当前已应用' }}：<b>{{ currentScope }}</b><span class="scope-label">{{ scopeLabel }}</span></span><span v-if="hasPending" class="pending-note">筛选已修改，点击「应用筛选」更新结果</span><span v-else class="scope-note">最终已交付状态 · 按下单日统计</span></div>
 
         <section v-if="error" class="error-state" role="alert"><span class="state-icon">!</span><h2>暂时无法读取经营数据</h2><p>{{ error }}</p><el-button type="primary" :icon="Refresh" @click="retry">重新连接</el-button><p class="error-help">{{ staticDemo ? '请刷新页面并检查静态数据文件是否可访问。' : '请确认真实数据已经导入，且后端服务正在运行。' }}</p></section>

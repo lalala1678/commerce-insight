@@ -4,7 +4,7 @@ from fastapi.testclient import TestClient
 from backend.app import create_app
 from backend.db import make_engine
 from backend.etl import import_data
-from backend.reports import detect_anomalies, decompose, contributions, build_report, markdown, html_report, delivery_diagnosis
+from backend.reports import detect_anomalies, decompose, contributions, build_report, markdown, html_report, delivery_diagnosis, build_investigations
 from test_etl import create_olist_fixture
 
 
@@ -58,6 +58,45 @@ def test_group_samples_medians_and_stratum_gate():
     assert d['strata']['category'][1]['score_gap'] is None
 
 
+def test_investigation_evidence_resolves_to_report_values_even_when_previous_has_zero_orders(warehouse):
+    report=build_report(warehouse,start='2018-07-01',end='2018-07-31')
+    report['previous']=dict(order_count=0,revenue_cents=0,average_order_value_cents=None)
+    report['previous_daily_revenue_cents']=0
+    report['delta_cents']=report['current']['revenue_cents']
+    report['contributions']={
+        'category':contributions([dict(name='casa',revenue_cents=45000)],[]),
+        'state':contributions([dict(name='SP',revenue_cents=45000)],[])}
+    report['delivery']=delivery_diagnosis([
+        dict(category='casa',state='SP',is_late=0,review_score=5,order_count=20),
+        dict(category='casa',state='SP',is_late=1,review_score=1,order_count=20)])
+    tasks=build_investigations(report)
+    assert [task['id'] for task in tasks]==['sales-change','delivery-review']
+    assert '待验证' in tasks[0]['hypothesis'] and '相关性' in tasks[1]['hypothesis']
+    assert '品类 casa' in tasks[0]['title'] and '客户州 SP' in tasks[0]['title']
+    assert all(task['checks'] and task['missing_data'] and task['verification_metric'] for task in tasks)
+    for task in tasks:
+        for evidence in task['evidence']:
+            assert evidence['anchor'] in {'sales-breakdown','category-contribution','state-contribution','delivery-diagnosis'}
+            actual=report
+            for segment in evidence['pointer'].strip('/').split('/'):
+                actual=actual[int(segment)] if isinstance(actual,list) else actual[segment]
+            assert evidence['value']==actual
+    report['investigations']=tasks
+    md=markdown(report)
+    assert '## 核查任务（尚未执行）' in md
+    assert '/contributions/category/0/delta_cents' in md
+    assert '验证指标：' in md and '还需补充的数据：' in md
+    assert '核查步骤：' in html_report(report)
+    report['contributions']['category'][0]['name']='<script>unsafe</script>'
+    report['investigations']=build_investigations(report)
+    escaped=html_report(report)
+    assert '<script>' not in escaped and '&lt;script&gt;' in escaped
+    report['previous']=report['current'].copy()
+    report['previous_daily_revenue_cents']=report['daily_revenue_cents']
+    report['delta_cents']=0
+    assert [task['id'] for task in build_investigations(report)]==['delivery-review']
+
+
 @pytest.fixture
 def warehouse(tmp_path):
     db=make_engine(f'sqlite:///{tmp_path/"report.db"}')
@@ -73,6 +112,7 @@ def test_real_scope_no_fanout_and_missing_coverage(warehouse):
     assert sum(x['order_count'] for x in r['delivery']['groups'].values())==3
     assert sum(g['on_time']['order_count']+g['late']['order_count']+g['unknown']['order_count'] for g in r['delivery']['strata']['category'])==3
     assert all(x['status']=='insufficient' for x in r['anomalies'])
+    assert r['investigations']==[]  # no comparable period or sufficiently sized review groups
     filtered=build_report(warehouse,category='casa',state='SP')
     assert filtered['current']['order_count']==0 # default last July week
     assert '不可计算' in markdown(filtered)

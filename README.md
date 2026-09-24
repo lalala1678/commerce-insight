@@ -1,8 +1,8 @@
 # 商析 · 电商经营分析与诊断平台
 
-**八周主线成果：数据审计 → 可靠导入 → 统一指标 → 四页看板 → 经营诊断 → 可复现发布。** 面向数据分析／商业分析求职，使用 Olist 真实历史订单，展示从原始 CSV 到可追溯经营建议的完整流程。
+**八周主线成果：数据审计 → 可靠导入 → 统一指标 → 四页看板 → 经营诊断 → 可复现发布。** 这是面向数据分析／商业分析求职的非商业作品集原型，以 Olist 巴西多卖家平台历史订单模拟平台运营分析流程，展示从原始 CSV 到可追溯待核查建议的完整路径。它不是一家商家的实时经营后台。
 
-- [在线历史演示](https://lalala1678.github.io/commerce-insight/) · 仅支持预先导出的六个筛选范围，不提供订单级数据。
+- [在线历史演示](https://lalala1678.github.io/commerce-insight/) · 仅支持预先导出的筛选范围，不提供订单级数据。
 - [GitHub 仓库](https://github.com/lalala1678/commerce-insight) · [三分钟字幕演示视频](docs/portfolio/demo-screenshots.mp4) · [项目架构](docs/portfolio/ARCHITECTURE.md)。
 
 技术栈：**Python + Pandas + MySQL + FastAPI + Vue3 + Element Plus + ECharts + Docker Compose**。SQLite 用于本地入门和快速测试；GitHub Pages 使用同一前端和预计算聚合快照。
@@ -11,10 +11,12 @@
 
 - **经营概览**：成交商品金额、已交付订单、客单价、购买客户数，日／周／月趋势，品类与地区贡献。
 - **商品与履约**：TOP 商品、低销量商品，延迟交付率、配送时长、评分分布，以及订单列表和商品项明细。
-- **客户分析**：数据内新老客、观察期复购率、购买频次与 RFM 八组，规则和窗口公开。
-- **经营报告**：销售变化拆解、历史同星期异常提示、履约诊断，下载 Markdown／HTML／JSON。
+- **客户分析**：数据内新老客、观察期复购率、购买频次与 RFM 八组；在线演示提供较长观察窗，明确展示样本范围。
+- **经营报告**：销售变化拆解、历史同星期异常提示、履约诊断，以及带证据的待核查任务；可在本机记录核查进度并下载 Markdown／HTML／JSON。
 
-本地四页共用日期、品类和客户州筛选，支持订单与商品项明细。在线演示只允许六个已导出范围，隐藏订单明细。默认查看 2018 年 7 月；数据使用最终已交付状态，按下单日归属，金额为 BRL 且不含运费。失败时不会回退为模拟数据。
+本地四页共用日期、品类和客户州筛选，支持订单与商品项明细。在线演示只允许已导出范围，隐藏订单明细。默认查看 2018 年 7 月；数据使用最终已交付状态，按下单日归属，金额为 BRL 且不含运费。失败时不会回退为模拟数据。
+
+产品价值目前是**待验证假设**：统一口径可能减少手工对账，并帮助运营人员更快找到销售或履约变化。尚无真实商家试用、节省时间、建议采纳、营收改善或付费意愿的证据。Olist 样本不能直接代表中国单店业务；真实退款、广告成本、库存、成本及利润字段缺失。要评估可用性与商业价值，见[用户任务与试点计划](docs/PRODUCT_VALIDATION_PLAN.md)。
 
 真实 MySQL 8.0.41 已完成两次全量导入，表行数与金额保持一致：**99,441 笔原始订单、112,650 条商品明细、96,478 笔已交付订单，已交付商品金额 R$ 13,221,498.11**。这些是全文件核对数，不是默认 7 月页面的金额。证据见 [重复导入记录](docs/core/etl_idempotence.json)；第2–4周测试、接口核对与页面检查结果见 [核心版本验收记录](docs/core/VERIFICATION.md)。
 
@@ -24,7 +26,9 @@
 
 第6步验收：64 项测试通过，6组原始文件独立核对与四个页面浏览器检查通过。资料：[报告规则与样例](docs/REPORTS.md)、[销售变化案例](docs/reports/CASE_SALES.md)、[履约评价案例](docs/reports/CASE_DELIVERY.md)、[验收记录](docs/reports/VERIFICATION.md)。
 
-第7–8步验收：**82 项测试通过**；6 个预设范围的 30 份静态响应与 FastAPI 一致；三分钟字幕视频已核对时长与关键数字。GitHub Actions 的常规测试、Docker Compose 容器验收和 Pages 发布均通过，在线四页及手机布局已实测。证据见[公开发布验收](docs/RELEASE_VERIFICATION.md)、[静态快照核对](docs/pages/VERIFICATION.md)与[视频说明](docs/portfolio/VIDEO.md)。
+第7–8步首版发布验收（2026-09-25）：**82 项测试通过**；当时 6 个预设范围的 30 份静态响应与 FastAPI 一致；三分钟字幕视频已核对时长与关键数字。GitHub Actions 的常规测试、Docker Compose 容器验收和 Pages 发布均通过，在线四页及手机布局已实测。后续新增预设应重新核对，不能把首版数字当作最新验收。证据见[公开发布验收](docs/RELEASE_VERIFICATION.md)、[静态快照核对](docs/pages/VERIFICATION.md)与[视频说明](docs/portfolio/VIDEO.md)。
+
+本次产品迭代的本地验收：**83 项测试通过**；7 个预设范围的 35 份静态响应与本地 FastAPI 一致，其中 2018 年 2–7 月范围有 38,560 位购买客户，32,460 位在观察期末超过 30 天未购买。核查任务的证据指针、浏览器填写与导出也已检查；远程发布结果以[公开发布验收](docs/RELEASE_VERIFICATION.md)中的更新记录为准。浏览器填写的负责人、进度和备注仅保存在该浏览器，清理本地数据会丢失；它不代表已分配或完成商家内部任务。
 
 ## 学习资料
 
@@ -36,6 +40,7 @@
 - [第 2–4 周验收记录](docs/core/VERIFICATION.md)
 - [公开发布和线上验收](docs/RELEASE_VERIFICATION.md)、[静态演示的范围与导出方法](docs/pages/DEPLOYMENT.md)、[三服务 Docker 启动](docs/deploy/COMPOSE.md)
 - [简历项目描述与面试问答](docs/portfolio/RESUME_AND_INTERVIEW.md)、[三分钟演示脚本](docs/portfolio/DEMO_SCRIPT.md)
+- [目标用户、可用性任务与真实商家试点计划](docs/PRODUCT_VALIDATION_PLAN.md)
 
 ## 数据如何流到页面
 
@@ -152,7 +157,7 @@ docker compose exec api python -m backend.etl data/raw
 .venv/Scripts/python.exe -m pytest -q
 ```
 
-前端目录运行 `npm run build` 检查本地 API 版。静态版从已提交的汇总快照构建：在前端目录设置 `VITE_STATIC_DEMO=1` 后运行 `npm run build`。它不连接 MySQL，且只显示页面列出的六个筛选范围；导出与核对方式见 [Pages 说明](docs/pages/DEPLOYMENT.md)。
+前端目录运行 `npm run build` 检查本地 API 版。静态版从已提交的汇总快照构建：在前端目录设置 `VITE_STATIC_DEMO=1` 后运行 `npm run build`。它不连接 MySQL，且只显示页面列出的已导出筛选范围；导出与核对方式见 [Pages 说明](docs/pages/DEPLOYMENT.md)。
 
 需要复核原始文件时，执行 `python -m scripts.audit_data` 和 `python -m scripts.verify_audit`，它们不写数据库；前者刷新第 1 周审计资料，后者使用标准库独立核对。新文件版本可能产生不同结果，不应强行匹配旧报告。
 
@@ -165,7 +170,7 @@ API 运行后，执行 `python -m scripts.verify_pipeline` 独立核对 CSV、SQ
 ```text
 backend/          真实仓库、ETL、SQL 查询和 FastAPI；保留独立合成样例
 frontend/src/     四页看板及 API／静态双模式
-frontend/public/  六个预设范围的聚合 JSON 与口径说明
+frontend/public/  已导出预设范围的聚合 JSON 与口径说明
 sql/              可直接阅读的指标查询
 tests/            粒度、金额、重复导入、回滚、接口及静态快照检查
 docs/             路线图、口径、业务案例、验收和求职展示材料

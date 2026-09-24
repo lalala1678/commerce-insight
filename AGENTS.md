@@ -3,7 +3,7 @@
 当前 **0–8 步主线已完成并公开发布**：数据审计、ETL、指标、四页看板、客户分析、经营报告、静态站点、三服务 Compose 与求职展示材料。真实 Olist 数据在原生 MySQL 8.0.41 上完成两次全量导入；静态数据与 API 的一致性见 docs/pages/VERIFICATION.md，线上 Pages、容器工作流及浏览器实测见 docs/RELEASE_VERIFICATION.md。求职材料见 docs/portfolio/。本机没有 Docker 命令，容器运行证据来自 GitHub Actions 的 Ubuntu 环境。先阅读 README.md、docs/ROADMAP.md、docs/METRICS.md、docs/DATA_AUDIT.md 和最新验收记录，再完成用户本次指定范围。
 
 - 按用户本次授权范围推进并报告验收结果；可选的销量预测要单独设计基线与滚动验证，不写成已实现。
-- 当前页面为经营概览、商品与履约、客户分析、经营报告。新老客、观察窗复购及 RFM 已实现；两份业务案例、按需模板报告与异常提示已实现；静态版只提供六个预设范围，定时任务与预测尚未实现。
+- 当前页面为经营概览、商品与履约、客户分析、经营报告。新老客、观察窗复购及 RFM 已实现；两份业务案例、按需模板报告与异常提示已实现；静态版只提供已导出的预设范围，定时任务与预测尚未实现。
 - 保留 FastAPI + Vue3 + MySQL 方向；SQLite 仅用于地基、本地入门和快速测试。
 - 示例数据必须显示为 synthetic / 合成数据，不能冒充 Olist 真实分析。
 - backend.etl 管理真实分析表，backend.seed 仅管理 demo_ 合成表；保持隔离。真实页面不得回退到合成数据。

@@ -101,6 +101,75 @@ def delivery_diagnosis(rows):
                 note='订单按命中商品金额最大的品类唯一归组；同组至少20条有效评价才展示分组评分差。该门槛不是显著性检验。')
 
 
+def build_investigations(report):
+    """Turn observed differences into traceable questions, never inferred causes."""
+    tasks=[]; current=report['current']; previous=report['previous']
+    sales_changed=(previous is not None and
+                   (report['delta_cents'] or current['order_count']!=previous['order_count'] or
+                    report['daily_revenue_cents']!=report['previous_daily_revenue_cents']))
+    if sales_changed and (current['order_count'] or previous['order_count']):
+        category=next(((i,row) for i,row in enumerate(report['contributions']['category'])
+                       if row['delta_cents']),None)
+        state=next(((i,row) for i,row in enumerate(report['contributions']['state'])
+                    if row['delta_cents']),None)
+        evidence=[dict(label='本期与比较期商品金额差额',pointer='/delta_cents',
+                       value=report['delta_cents'],unit='cents',anchor='sales-breakdown'),
+                  dict(label='本期日均商品金额',pointer='/daily_revenue_cents',
+                       value=report['daily_revenue_cents'],unit='cents',anchor='sales-breakdown'),
+                  dict(label='比较期日均商品金额',pointer='/previous_daily_revenue_cents',
+                       value=report['previous_daily_revenue_cents'],unit='cents',anchor='sales-breakdown')]
+        leaders=[]
+        for key,found,title in [('category',category,'品类'),('state',state,'客户州')]:
+            if found:
+                index,row=found
+                leaders.append(f"{title} {row['name']}")
+                evidence.append(dict(label=f"{title} {row['name']} 的商品金额差额",
+                                     pointer=f'/contributions/{key}/{index}/delta_cents',
+                                     value=row['delta_cents'],unit='cents',
+                                     anchor=f'{key}-contribution'))
+        focus='、'.join(leaders) if leaders else '订单及商品结构'
+        tasks.append(dict(id='sales-change',kind='sales',title=f'核查{focus}的金额变化',
+            observation=(f"本期与比较期商品金额差额 {report['delta_cents']/100:+,.2f} BRL；"
+                         f"日均金额分别为 {report['daily_revenue_cents']/100:,.2f} 与 "
+                         f"{report['previous_daily_revenue_cents']/100:,.2f} BRL。"),
+            evidence=evidence,
+            hypothesis=f'待验证：{focus}的差额可能涉及订单数量、商品组合或少数大额订单；目前不能判定原因，也不能把品类与客户州两套边际贡献当作交集。',
+            checks=['用相同日期和筛选核对订单明细；分别计算重点品类和客户州的订单量、商品金额、客单价。',
+                    '检查品类×客户州交叉范围和少数大额订单；另选等长、星期构成接近的周期做敏感性比较。'],
+            missing_data=['当前缺少库存、活动、渠道和成本记录；没有这些资料不能归因缺货、促销或利润变化。'],
+            verification_metric='重算后各品类或各客户州的完整差额之和，应分别等于本报告商品金额差额；同时记录日均商品金额、订单数和客单价。'))
+    groups=report['delivery']['groups']; late=groups['late']; on_time=groups['on_time']
+    if min(late['reviewed_orders'],on_time['reviewed_orders'])>=20:
+        evidence=[dict(label='延迟交付有评价订单',pointer='/delivery/groups/late/reviewed_orders',
+                       value=late['reviewed_orders'],unit='orders',anchor='delivery-diagnosis'),
+                  dict(label='按期交付有评价订单',pointer='/delivery/groups/on_time/reviewed_orders',
+                       value=on_time['reviewed_orders'],unit='orders',anchor='delivery-diagnosis'),
+                  dict(label='延迟组平均评分',pointer='/delivery/groups/late/mean_score',
+                       value=late['mean_score'],unit='score',anchor='delivery-diagnosis'),
+                  dict(label='按期组平均评分',pointer='/delivery/groups/on_time/mean_score',
+                       value=on_time['mean_score'],unit='score',anchor='delivery-diagnosis')]
+        leaders=[]
+        for key,title in [('category','品类'),('state','客户州')]:
+            found=next(((i,row) for i,row in enumerate(report['delivery']['strata'][key])
+                        if row['comparison_eligible']),None)
+            if found:
+                index,row=found;leaders.append(f"{title} {row['name']}")
+                evidence.append(dict(label=f"{title} {row['name']} 的分层评分差",
+                                     pointer=f'/delivery/strata/{key}/{index}/score_gap',
+                                     value=row['score_gap'],unit='score',anchor='delivery-diagnosis'))
+        focus='、'.join(leaders) if leaders else '评价样本'
+        tasks.append(dict(id='delivery-review',kind='delivery',title=f'核查{focus}的履约与评价差异',
+            observation=(f"延迟组 {late['reviewed_orders']} 条评价、平均 {late['mean_score']:.3f} 分；"
+                         f"按期组 {on_time['reviewed_orders']} 条评价、平均 {on_time['mean_score']:.3f} 分。"),
+            evidence=evidence,
+            hypothesis='待验证：履约过程可能与评分差共同变化；品类、地区、评价选择和订单结构也可能解释部分差异。当前结果仅为相关性。',
+            checks=['抽查预计与实际送达日期、评价时间和缺评价订单，先排除字段与选择规则问题。',
+                    '在可比的品类×客户州范围重新比较延迟率、1–2分占比与评价覆盖率，并记录各组样本量。'],
+            missing_data=['缺少完整物流事件、投诉原因和受控试验；无法估计减少延迟会提高多少评分。'],
+            verification_metric='在预先选定的可比范围内，报告延迟率、1–2分占比、评价覆盖率及每组样本量；若做试点，另设同期对照与完整观察期。'))
+    return tasks
+
+
 def build_report(db, start='2018-07-23', end='2018-07-29', category='', state=''):
     start,end=a._range(start,end)
     if (end-start).days>365:raise ValueError('经营报告单次范围不得超过366天。')
@@ -122,7 +191,7 @@ def build_report(db, start='2018-07-23', end='2018-07-29', category='', state=''
         delivery=delivery_diagnosis(a._rows(conn,DELIVERY_SQL,params))
     delta=current['revenue_cents']-previous['revenue_cents'] if previous else None
     alerts=detect_anomalies(days,start,end,coverage)
-    return {'meta':dict(data_source='olist',data_version=dataset['data_version'],currency='BRL',
+    report={'meta':dict(data_source='olist',data_version=dataset['data_version'],currency='BRL',
                        start=start.isoformat(),end=end.isoformat(),category=category,state=state,
                        comparison_start=prior_start.isoformat(),comparison_end=prior_end.isoformat(),comparison_label=label,
                        comparable=comparable,is_calendar_week=start.weekday()==0 and (end-start).days==6,
@@ -137,6 +206,8 @@ def build_report(db, start='2018-07-23', end='2018-07-29', category='', state=''
                            '覆盖外或历史样本不足时不判断异常；覆盖内缺记录按观察到的0单计算，不证明平台没有销售。',
                            '阈值是探索规则，异常仅表示待核查，不自动归因促销、欺诈或经营问题。',
                            '评价组差异为相关性描述，受品类、地区、客群、评价选择和历史抽样影响，不证明配送的因果效果。']}
+    report['investigations']=build_investigations(report)
+    return report
 
 
 def markdown(report):
@@ -172,10 +243,23 @@ def markdown(report):
             '规则：前8个同星期日订单量中位数≥5；偏差严格超过 max(3×1.4826×MAD, 50%×中位数, 10单) 才提示。']
     for row in flagged:lines.append(f"- {row['day']}：{row['order_count']}单；历史中位数{row['baseline_median']:g}单，阈值{row['threshold']:.2f}单；{'偏高' if row['status']=='high' else '偏低'}，待核查。")
     if not flagged:lines.append('未发现满足当前规则的日期；不表示经营没有问题。')
-    lines+=['','## 建议与验证（尚未执行）','',
-            '- 先核查贡献变化较大的品类/地区：检查订单明细、商品组合与周期天数，再决定是否需要经营动作。',
-            '- 对异常日期先检查源数据完整性和订单状态；仅在获得活动、渠道或库存证据后讨论业务原因。',
-            '- 履约改进可先选择可比品类和地区试点，预先固定延迟率与评价覆盖率，使用同期对照检验结果。',
+    lines+=['','## 核查任务（尚未执行）','']
+    for task in report['investigations']:
+        lines += [f"### {safe(task['title'])}（{task['id']}）",'',
+                  f"观察事实：{safe(task['observation'])}",
+                  f"待验证假设：{safe(task['hypothesis'])}",
+                  '证据（数值可在配套 JSON 指针核对）：']
+        for item in task['evidence']:
+            value=(money(item['value']) if item['unit']=='cents' else
+                   f"{item['value']:.3f} 分" if item['unit']=='score' else f"{item['value']} 单")
+            lines.append(f"- {safe(item['label'])}：{value}；JSON 指针 {item['pointer']}")
+        lines+=['核查步骤：']+['- '+safe(step) for step in task['checks']]
+        lines+=['还需补充的数据：']+['- '+safe(item) for item in task['missing_data']]
+        lines+=[f"验证指标：{safe(task['verification_metric'])}",'']
+    if not report['investigations']:
+        lines+=['比较期或履约评价样本不足，当前不生成具体核查任务；可调整到有可比数据的范围。','']
+    lines+=['异常日期仍需核查源数据完整性和订单状态；活动或渠道原因需另有证据。',
+            '任务进度和负责人只保存在当前浏览器；可从页面另行下载核查记录 JSON。',
             '', '## 数据与解释限制','']+['- '+s for s in report['limitations']]
     lines+=['', '数据来源：Olist Brazilian E-Commerce Public Dataset，CC BY-NC-SA 4.0。',
             'https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce',
@@ -195,6 +279,7 @@ def html_report(report):
         if table:blocks.append('</table>');table=False
         if line.startswith('# '):blocks.append('<h1>'+escape(line[2:])+'</h1>')
         elif line.startswith('## '):blocks.append('<h2>'+escape(line[3:])+'</h2>')
+        elif line.startswith('### '):blocks.append('<h3>'+escape(line[4:])+'</h3>')
         elif line:blocks.append('<p>'+escape(line)+'</p>')
     if table:blocks.append('</table>')
     return '<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>经营报告</title><style>body{max-width:960px;margin:40px auto;padding:0 20px;font:15px/1.8 system-ui;color:#294657}h1,h2{color:#167f77}table{width:100%;border-collapse:collapse}td{padding:9px;border-bottom:1px solid #dfe7eb}tr:first-child{background:#eef5f3;font-weight:bold}@media print{body{margin:0}h2{break-after:avoid}tr{break-inside:avoid}}</style><body>'+''.join(blocks)+'</body></html>'

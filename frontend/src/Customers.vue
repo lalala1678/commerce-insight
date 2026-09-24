@@ -1,7 +1,7 @@
 <script setup>
 import { ref, computed, watch, onBeforeUnmount } from 'vue'
 import Chart from './Chart.vue'
-import { getJson, number, money, percent } from './api'
+import { getJson, number, money, percent, staticDemo } from './api'
 const props = defineProps({ scope: { type: Object, required: true }, version: String })
 const data = ref(null), loading = ref(false), error = ref('')
 let controller, sequence = 0
@@ -30,6 +30,9 @@ const cards = computed(() => {
     { label: '观察期复购率', value: s.repeat_rate == null ? '不可计算' : `${number(s.repeat_rate * 100, 2)}%`, hint: `${number(s.repeat_customers)} 位客户在窗口内购买至少2次` },
   ]
 })
+const olderWindowBuyers = computed(() => (data.value?.segments || [])
+  .filter(group => group.key.startsWith('0'))
+  .reduce((count, group) => count + group.customer_count, 0))
 const frequencyChart = computed(() => ({
   color: ['#16897f'], tooltip: { trigger: 'axis' },
   grid: { left: 60, right: 20, top: 25, bottom: 40 },
@@ -54,9 +57,10 @@ const frequencyChart = computed(() => ({
           <dt>R · 距末次购买天数</dt><dd>截止日减窗口内最近购买日；≤30 天 / >30 天</dd>
           <dt>F · 购买频次</dt><dd>窗口内已交付订单；1 次 / ≥2 次</dd>
           <dt>M · 商品金额</dt><dd>窗口内命中商品金额；< R$200 / ≥ R$200</dd>
-        </dl><p class="table-note">默认月度窗口的 R 差异有限。可将顶部开始日期改为 2018-02-01，观察更长窗口；所有客户指标会一起重算。阈值用于探索，不表示“优质”或“流失”。</p></section>
+        </dl><p class="table-note">{{ staticDemo ? '在线版可选“2018 年 2–7 月 · 长观察窗 / 全部”，观察 R 的两侧；切换范围时所有客户指标一起重算。' : '短窗口的 R 差异有限；可将开始日期改为 2018-02-01，观察更长窗口，所有客户指标一起重算。' }}阈值用于探索，不表示“优质”或“流失”。</p></section>
       </div>
       <section class="panel"><div class="panel-heading"><div><h2>RFM 客户分组</h2><p>三个维度组合为8组，覆盖本窗口全部购买客户且互不重叠</p></div><span class="small-tag">{{ number(data.summary.customer_count) }} 位客户</span></div>
+        <p class="table-note">本范围有购买、距末次购买 &gt;30 天：{{ number(olderWindowBuyers) }} 位。分组不包含观察窗内未购买的历史客户，不能据此识别所有潜在流失客户。</p>
         <p class="mobile-table-hint">左右滑动，查看分组订单数与金额 →</p>
         <el-table :data="data.segments" stripe>
           <el-table-column prop="label" label="分组规则" min-width="335" />

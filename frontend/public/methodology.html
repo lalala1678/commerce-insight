@@ -2,8 +2,8 @@
 <html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>数据与口径说明 · 商析</title><style>
 body{font:15px/1.8 -apple-system,BlinkMacSystemFont,"Microsoft YaHei",sans-serif;background:#f4f7fa;color:#294657;margin:0}main{max-width:760px;margin:42px auto;padding:32px;background:white;border:1px solid #e2e9ed;border-radius:10px}h1{font-size:25px;margin:0 0 14px}h2{font-size:17px;margin:27px 0 7px}p,li{margin:8px 0}a{color:#167f77}small{color:#728a99}@media(max-width:800px){main{margin:0;border:0;border-radius:0;padding:24px 18px}}
 </style></head><body><main><a href="./">← 返回经营工作台</a><h1>数据与口径说明</h1>
-<p>本站是 Olist 公开历史数据的静态演示。筛选菜单仅提供预先导出的 6 个范围；页面不进行实时查询，也不包含订单级明细。</p>
+<p>本站是面向多卖家平台运营分析的非商业作品集原型，使用 Olist 巴西平台公开历史数据模拟经营核查。它不是一家商家的完整经营系统，也没有经过真实商家试用。在线菜单仅提供预先导出的聚合范围；不进行实时查询，也不包含订单级明细。本地 FastAPI 版可对已导入的历史数据使用合法日期、品类和地区筛选并查看订单明细。</p>
 <h2>核心指标</h2><ul><li>主口径为最终状态已交付订单，按下单日期归属。</li><li>成交商品金额为命中订单明细的商品金额之和，不含运费；客单价为同范围金额除以去重订单数。</li><li>品类筛选只包含该品类的商品金额；订单和客户去重。客户标识使用跨订单稳定 ID，但静态文件中不包含该 ID。</li><li>复购率为所选观察期购买至少两次的客户数除以观察期购买客户数；RFM 使用观察期结束日及探索性阈值。</li><li>延迟交付与评分只描述相关性；缺少交付或评分的订单不计入对应分母。</li></ul>
-<h2>数据边界</h2><p>公开样本不含库存、真实退款、广告成本和利润，因此不能推导滞销、退款率、广告 ROI 或利润。经营报告的建议是待验证的检查方向；异常提示不是已证实的原因。</p>
-<h2>来源与许可</h2><p>数据来自 <a href="https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce" target="_blank" rel="noreferrer">Olist Brazilian E-Commerce Public Dataset</a>，按 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noreferrer">CC BY-NC-SA 4.0</a> 署名、非商业、相同方式共享条款使用。本站展示经清洗和聚合的历史指标。</p><small>静态演示 · 巴西雷亚尔 BRL · 非实时经营数据</small>
+<h2>数据与价值边界</h2><p>公开样本不含库存、真实退款流水、广告成本与流量、经营成本，因此不能推导滞销、退款率、广告 ROI 或利润。巴西多卖家平台样本不能直接代表中国单店商家。经营报告的建议是待验证的检查方向；异常提示不是已证实的原因。本原型尚无节省时间、建议采纳、营收收益或付费意愿的用户验证。</p>
+<h2>来源与许可</h2><p>数据来自 <a href="https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce" target="_blank" rel="noreferrer">Olist Brazilian E-Commerce Public Dataset</a>，按 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noreferrer">CC BY-NC-SA 4.0</a> 署名、非商业、相同方式共享条款使用。本站展示经清洗和聚合的历史指标；该数据许可不等于商业使用授权。未来若提供商业服务，须改用获得适用授权的数据并处理隐私与权限要求。</p><small>非商业作品集演示 · 巴西雷亚尔 BRL · 非实时经营数据</small>
 </main></body></html>
