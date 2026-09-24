@@ -1,0 +1,6 @@
+order_id,customer_id,purchased_at,status
+demo-001,customer-A,2018-07-01,delivered
+demo-002,customer-B,2018-07-02,delivered
+demo-003,customer-A,2018-07-03,delivered
+demo-004,customer-C,2018-07-04,canceled
+demo-005,customer-D,2018-07-05,processing

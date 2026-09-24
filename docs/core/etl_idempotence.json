@@ -1,0 +1,44 @@
+{
+  "mysql_version": "8.0.41",
+  "runs": [
+    {
+      "run": 1,
+      "seconds": 27.202,
+      "counts": {
+        "dim_customer": 99441,
+        "dim_product": 32951,
+        "dim_seller": 3095,
+        "fact_order": 99441,
+        "fact_item": 112650,
+        "agg_day": 612,
+        "etl_run": 1
+      },
+      "totals": {
+        "orders": 96478,
+        "cents": 1322149811
+      },
+      "data_version": "2ca51e3f812486e6"
+    },
+    {
+      "run": 2,
+      "seconds": 54.301,
+      "counts": {
+        "dim_customer": 99441,
+        "dim_product": 32951,
+        "dim_seller": 3095,
+        "fact_order": 99441,
+        "fact_item": 112650,
+        "agg_day": 612,
+        "etl_run": 1
+      },
+      "totals": {
+        "orders": 96478,
+        "cents": 1322149811
+      },
+      "data_version": "2ca51e3f812486e6"
+    }
+  ],
+  "idempotent": true,
+  "matches_audit_inputs": true,
+  "note": "Two real imports, no mutation to demo tables or original CSV files."
+}

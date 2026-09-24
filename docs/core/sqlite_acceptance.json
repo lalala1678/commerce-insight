@@ -1,0 +1,14 @@
+{
+  "database": "sqlite",
+  "data_version": "2ca51e3f812486e6",
+  "delivered_order_count": 96478,
+  "delivered_revenue_cents": 1322149811,
+  "default_dashboard": {
+    "order_count": 6159,
+    "revenue_cents": 86795346,
+    "item_count": 6963,
+    "customer_count": 6100,
+    "average_order_value_cents": 14092.441305406723
+  },
+  "matches_mysql_july": true
+}

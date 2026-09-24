@@ -1,0 +1,44 @@
+services:
+  mysql:
+    image: mysql:8.0.41
+    environment:
+      MYSQL_DATABASE: commerce
+      MYSQL_USER: commerce
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:?Copy .env.example to .env and set MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?Set MYSQL_ROOT_PASSWORD in .env}
+    volumes:
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: [CMD-SHELL, 'mysql -h 127.0.0.1 -u"$$MYSQL_USER" -p"$$MYSQL_PASSWORD" "$$MYSQL_DATABASE" -e "SELECT 1" >/dev/null 2>&1']
+      interval: 5s
+      timeout: 5s
+      retries: 30
+      start_period: 20s
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./data/raw:/app/data/raw:ro
+    environment:
+      DATABASE_URL: mysql+pymysql://commerce:${MYSQL_PASSWORD:?Set MYSQL_PASSWORD in .env}@mysql:3306/commerce?charset=utf8mb4
+    depends_on:
+      mysql:
+        condition: service_healthy
+    healthcheck:
+      test: [CMD, python, -c, 'import urllib.request; urllib.request.urlopen("http://127.0.0.1:8000/api/health", timeout=3).close()']
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 10s
+  web:
+    build:
+      context: .
+      dockerfile: deploy/frontend.Dockerfile
+    ports:
+      - "127.0.0.1:8080:80"
+    depends_on:
+      api:
+        condition: service_healthy
+volumes:
+  mysql-data:

@@ -1,0 +1,23 @@
+{
+  "verified_at_utc": "2026-09-22T09:12:29.654Z",
+  "browser": "Microsoft Edge via Playwright",
+  "desktop": [
+    1440,
+    1000
+  ],
+  "mobile": [
+    390,
+    844
+  ],
+  "initial_july_values": true,
+  "grain_switches": true,
+  "category_and_state_filters": true,
+  "draft_vs_applied": true,
+  "order_pagination_and_detail": true,
+  "product_and_fulfillment": true,
+  "error_recovery_without_stale_kpis": true,
+  "empty_and_invalid_dates": true,
+  "no_mobile_horizontal_overflow": true,
+  "api_docs_proxy": true,
+  "page_errors": []
+}

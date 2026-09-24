@@ -1,0 +1,1004 @@
+{
+  "schema_version": 1,
+  "data_version": "0884b628bb036f39",
+  "generated_at_utc": "2026-09-19T08:05:41.190545+00:00",
+  "software": {
+    "python": "3.10.4",
+    "pandas": "2.2.3"
+  },
+  "scope": {
+    "files": 9,
+    "full_scan": true,
+    "truncated": false,
+    "max_rows_per_file": 1200000,
+    "max_bytes_per_file": 67108864,
+    "missing_policy": "空字符串或全空白；不把 NA/null/0 自动当缺失",
+    "raw_modified": false,
+    "output_policy": "仅聚合、字段定义、文件摘要；不导出客户/订单标识、自由评价或逐行位置"
+  },
+  "tables": {
+    "orders": {
+      "file": "olist_orders_dataset.csv",
+      "bytes": 17654914,
+      "sha256": "8df58ef3d2d7e9944010f7beecd9b75367f5588ec6e3c91cec19ae3345ef9ecf",
+      "rows": 99441,
+      "columns": [
+        {
+          "name": "order_id",
+          "missing": 0,
+          "missing_rate": 0.0,
+          "distinct_nonmissing": 99441
+        },
+        {
+          "name": "customer_id",
+          "missing": 0,
+          "missing_rate": 0.0,
+          "distinct_nonmissing": 99441
+        },
+        {
+          "name": "order_status",
+          "missing": 0,
+          "missing_rate": 0.0,
+          "distinct_nonmissing": 8
+        },
+        {
+          "name": "order_purchase_timestamp",
+          "missing": 0,
+          "missing_rate": 0.0,
+          "distinct_nonmissing": 98875
+        },
+        {
+          "name": "order_approved_at",
+          "missing": 160,
+          "missing_rate": 0.0016089942780140988,
+          "distinct_nonmissing": 90733
+        },
+        {
+          "name": "order_delivered_carrier_date",
+          "missing": 1783,
+          "missing_rate": 0.017930229985619613,
+          "distinct_nonmissing": 81018
+        },
+        {
+          "name": "order_delivered_customer_date",
+          "missing": 2965,
+          "missing_rate": 0.02981667521444877,
+          "distinct_nonmissing": 95664
+        },
+        {
+          "name": "order_estimated_delivery_date",
+          "missing": 0,
+          "missing_rate": 0.0,
+          "distinct_nonmissing": 459
+        }
+      ],
+      "exact_duplicate_rows": 0,
+      "full_scan": true,
+      "candidate_key": [
+        "order_id"
+      ],
+      "duplicate_key_rows": 0,
+      "missing_key_rows": 0,
+      "grain": "每行一笔订单，状态为抽取时最终状态"
+    },
+    "items": {
+      "file": "olist_order_items_dataset.csv",
+      "bytes": 15438671,
+      "sha256": "0bc4d068c4fe38cbb01bd90e8746e3c613fe7b4baef75fab7b0e329701c3e279",
+      "rows": 112650,
+      "columns": [
+        {
+          "name": "order_id",
+          "missing": 0,
+          "missing_rate": 0.0,
+          "distinct_nonmissing": 98666
+        },
+        {
+          "name": "order_item_id",
+          "missing": 0,
+          "missing_rate": 0.0,
+          "distinct_nonmissing": 21
+        },
+        {
+          "name": "product_id",
+          "missing": 0,
+          "missing_rate": 0.0,
+          "distinct_nonmissing": 32951
+        },
+        {
+          "name": "seller_id",
+          "missing": 0,
+          "missing_rate": 0.0,
+          "distinct_nonmissing": 3095
+        },
+        {
+          "name": "shipping_limit_date",
+          "missing": 0,
+          "missing_rate": 0.0,
+          "distinct_nonmissing": 93318
+        },
+        {
+          "name": "price",
+          "missing": 0,
+          "missing_rate": 0.0,
+          "distinct_nonmissing": 5968
+        },
+        {
+          "name": "freight_value",
+          "missing": 0,
+          "missing_rate": 0.0,
+          "distinct_nonmissing": 6999
+        }
+      ],
+      "exact_duplicate_rows": 0,
+      "full_scan": true,
+      "candidate_key": [
+        "order_id",
+        "order_item_id"
+      ],
+      "duplicate_key_rows": 0,
+      "missing_key_rows": 0,
+      "grain": "每行一个订单商品项，一笔订单可有多项"
+    },
+    "customers": {
+      "file": "olist_customers_dataset.csv",
+      "bytes": 9033957,
+      "sha256": "983a422239e1712ded753b3bf9ecf47dc73f144d306029dcfa99e70a226883d2",
+      "rows": 99441,
+      "columns": [
+        {
+          "name": "customer_id",
+          "missing": 0,
+          "missing_rate": 0.0,
+          "distinct_nonmissing": 99441
+        },
+        {
+          "name": "customer_unique_id",
+          "missing": 0,
+          "missing_rate": 0.0,
+          "distinct_nonmissing": 96096
+        },
+        {
+          "name": "customer_zip_code_prefix",
+          "missing": 0,
+          "missing_rate": 0.0,
+          "distinct_nonmissing": 14994
+        },
+        {
+          "name": "customer_city",
+          "missing": 0,
+          "missing_rate": 0.0,
+          "distinct_nonmissing": 4119
+        },
+        {
+          "name": "customer_state",
+          "missing": 0,
+          "missing_rate": 0.0,
+          "distinct_nonmissing": 27
+        }
+      ],
+      "exact_duplicate_rows": 0,
+      "full_scan": true,
+      "candidate_key": [
+        "customer_id"
+      ],
+      "duplicate_key_rows": 0,
+      "missing_key_rows": 0,
+      "grain": "每行一个订单使用的客户记录；不是独立自然客户"
+    },
+    "products": {
+      "file": "olist_products_dataset.csv",
+      "bytes": 2379446,
+      "sha256": "3e6569628a17fbc75fd206ee357b59e20364b9afa90f5b6cd5b4d624c58aa9cc",
+      "rows": 32951,
+      "columns": [
+        {
+          "name": "product_id",
+          "missing": 0,
+          "missing_rate": 0.0,
+          "distinct_nonmissing": 32951
+        },
+        {
+          "name": "product_category_name",
+          "missing": 610,
+          "missing_rate": 0.018512336499651,
+          "distinct_nonmissing": 73
+        },
+        {
+          "name": "product_name_lenght",
+          "missing": 610,
+          "missing_rate": 0.018512336499651,
+          "distinct_nonmissing": 66
+        },
+        {
+          "name": "product_description_lenght",
+          "missing": 610,
+          "missing_rate": 0.018512336499651,
+          "distinct_nonmissing": 2960
+        },
+        {
+          "name": "product_photos_qty",
+          "missing": 610,
+          "missing_rate": 0.018512336499651,
+          "distinct_nonmissing": 19
+        },
+        {
+          "name": "product_weight_g",
+          "missing": 2,
+          "missing_rate": 6.069618524475737e-05,
+          "distinct_nonmissing": 2204
+        },
+        {
+          "name": "product_length_cm",
+          "missing": 2,
+          "missing_rate": 6.069618524475737e-05,
+          "distinct_nonmissing": 99
+        },
+        {
+          "name": "product_height_cm",
+          "missing": 2,
+          "missing_rate": 6.069618524475737e-05,
+          "distinct_nonmissing": 102
+        },
+        {
+          "name": "product_width_cm",
+          "missing": 2,
+          "missing_rate": 6.069618524475737e-05,
+          "distinct_nonmissing": 95
+        }
+      ],
+      "exact_duplicate_rows": 0,
+      "full_scan": true,
+      "candidate_key": [
+        "product_id"
+      ],
+      "duplicate_key_rows": 0,
+      "missing_key_rows": 0,
+      "grain": "每行一个商品"
+    },
+    "sellers": {
+      "file": "olist_sellers_dataset.csv",
+      "bytes": 174703,
+      "sha256": "1f643d2b950373b85735e7794b20986f528d7a000432e7c6f9bcbb44d0846a0e",
+      "rows": 3095,
+      "columns": [
+        {
+          "name": "seller_id",
+          "missing": 0,
+          "missing_rate": 0.0,
+          "distinct_nonmissing": 3095
+        },
+        {
+          "name": "seller_zip_code_prefix",
+          "missing": 0,
+          "missing_rate": 0.0,
+          "distinct_nonmissing": 2246
+        },
+        {
+          "name": "seller_city",
+          "missing": 0,
+          "missing_rate": 0.0,
+          "distinct_nonmissing": 611
+        },
+        {
+          "name": "seller_state",
+          "missing": 0,
+          "missing_rate": 0.0,
+          "distinct_nonmissing": 23
+        }
+      ],
+      "exact_duplicate_rows": 0,
+      "full_scan": true,
+      "candidate_key": [
+        "seller_id"
+      ],
+      "duplicate_key_rows": 0,
+      "missing_key_rows": 0,
+      "grain": "每行一个卖家；不是平台店铺访问日志"
+    },
+    "payments": {
+      "file": "olist_order_payments_dataset.csv",
+      "bytes": 5777138,
+      "sha256": "4f713964f2815dbbaa40b9488268c55aac3627bfce5aa96cf58d1f3616de3cc0",
+      "rows": 103886,
+      "columns": [
+        {
+          "name": "order_id",
+          "missing": 0,
+          "missing_rate": 0.0,
+          "distinct_nonmissing": 99440
+        },
+        {
+          "name": "payment_sequential",
+          "missing": 0,
+          "missing_rate": 0.0,
+          "distinct_nonmissing": 29
+        },
+        {
+          "name": "payment_type",
+          "missing": 0,
+          "missing_rate": 0.0,
+          "distinct_nonmissing": 5
+        },
+        {
+          "name": "payment_installments",
+          "missing": 0,
+          "missing_rate": 0.0,
+          "distinct_nonmissing": 24
+        },
+        {
+          "name": "payment_value",
+          "missing": 0,
+          "missing_rate": 0.0,
+          "distinct_nonmissing": 29077
+        }
+      ],
+      "exact_duplicate_rows": 0,
+      "full_scan": true,
+      "candidate_key": [
+        "order_id",
+        "payment_sequential"
+      ],
+      "duplicate_key_rows": 0,
+      "missing_key_rows": 0,
+      "grain": "每行一笔订单的支付序号记录；一单可多次支付"
+    },
+    "reviews": {
+      "file": "olist_order_reviews_dataset.csv",
+      "bytes": 14451670,
+      "sha256": "012b61c7593e34f51fa614efdf802b9c7056ce6aae5307ddb93236e7cfc797d7",
+      "rows": 99224,
+      "columns": [
+        {
+          "name": "review_id",
+          "missing": 0,
+          "missing_rate": 0.0,
+          "distinct_nonmissing": 98410
+        },
+        {
+          "name": "order_id",
+          "missing": 0,
+          "missing_rate": 0.0,
+          "distinct_nonmissing": 98673
+        },
+        {
+          "name": "review_score",
+          "missing": 0,
+          "missing_rate": 0.0,
+          "distinct_nonmissing": 5
+        },
+        {
+          "name": "review_comment_title",
+          "missing": 87658,
+          "missing_rate": 0.8834354591631057,
+          "distinct_nonmissing": 4526
+        },
+        {
+          "name": "review_comment_message",
+          "missing": 58274,
+          "missing_rate": 0.5872974280416028,
+          "distinct_nonmissing": 36155
+        },
+        {
+          "name": "review_creation_date",
+          "missing": 0,
+          "missing_rate": 0.0,
+          "distinct_nonmissing": 636
+        },
+        {
+          "name": "review_answer_timestamp",
+          "missing": 0,
+          "missing_rate": 0.0,
+          "distinct_nonmissing": 98248
+        }
+      ],
+      "exact_duplicate_rows": 0,
+      "full_scan": true,
+      "grain": "每行一条评价记录；订单与 review_id 均不能先验当作唯一键"
+    },
+    "geolocation": {
+      "file": "olist_geolocation_dataset.csv",
+      "bytes": 61273883,
+      "sha256": "b514f6fc991b9566aeba02aa5d67e2c3630f034b60a0e05aa0d082a3b66d88d6",
+      "rows": 1000163,
+      "columns": [
+        {
+          "name": "geolocation_zip_code_prefix",
+          "missing": 0,
+          "missing_rate": 0.0,
+          "distinct_nonmissing": 19015
+        },
+        {
+          "name": "geolocation_lat",
+          "missing": 0,
+          "missing_rate": 0.0,
+          "distinct_nonmissing": 717372
+        },
+        {
+          "name": "geolocation_lng",
+          "missing": 0,
+          "missing_rate": 0.0,
+          "distinct_nonmissing": 717615
+        },
+        {
+          "name": "geolocation_city",
+          "missing": 0,
+          "missing_rate": 0.0,
+          "distinct_nonmissing": 8011
+        },
+        {
+          "name": "geolocation_state",
+          "missing": 0,
+          "missing_rate": 0.0,
+          "distinct_nonmissing": 27
+        }
+      ],
+      "exact_duplicate_rows": 261831,
+      "full_scan": true,
+      "grain": "每行一个邮编前缀对应的地理记录；邮编不是唯一键"
+    },
+    "translation": {
+      "file": "product_category_name_translation.csv",
+      "bytes": 2613,
+      "sha256": "a81f0d1f27b27e7293f761bc79e3ce8f348ee39c4b3ed3e49bde38f478586278",
+      "rows": 71,
+      "columns": [
+        {
+          "name": "product_category_name",
+          "missing": 0,
+          "missing_rate": 0.0,
+          "distinct_nonmissing": 71
+        },
+        {
+          "name": "product_category_name_english",
+          "missing": 0,
+          "missing_rate": 0.0,
+          "distinct_nonmissing": 71
+        }
+      ],
+      "exact_duplicate_rows": 0,
+      "full_scan": true,
+      "candidate_key": [
+        "product_category_name"
+      ],
+      "duplicate_key_rows": 0,
+      "missing_key_rows": 0,
+      "grain": "每行一个葡语品类到英语名称的映射"
+    }
+  },
+  "relationships": {
+    "orders.customer_id -> customers.customer_id": {
+      "child_rows": 99441,
+      "missing_child_keys": 0,
+      "unmatched_child_rows": 0,
+      "unmatched_distinct_keys": 0,
+      "parent_duplicate_key_rows": 0
+    },
+    "items.order_id -> orders.order_id": {
+      "child_rows": 112650,
+      "missing_child_keys": 0,
+      "unmatched_child_rows": 0,
+      "unmatched_distinct_keys": 0,
+      "parent_duplicate_key_rows": 0
+    },
+    "items.product_id -> products.product_id": {
+      "child_rows": 112650,
+      "missing_child_keys": 0,
+      "unmatched_child_rows": 0,
+      "unmatched_distinct_keys": 0,
+      "parent_duplicate_key_rows": 0
+    },
+    "items.seller_id -> sellers.seller_id": {
+      "child_rows": 112650,
+      "missing_child_keys": 0,
+      "unmatched_child_rows": 0,
+      "unmatched_distinct_keys": 0,
+      "parent_duplicate_key_rows": 0
+    },
+    "payments.order_id -> orders.order_id": {
+      "child_rows": 103886,
+      "missing_child_keys": 0,
+      "unmatched_child_rows": 0,
+      "unmatched_distinct_keys": 0,
+      "parent_duplicate_key_rows": 0
+    },
+    "reviews.order_id -> orders.order_id": {
+      "child_rows": 99224,
+      "missing_child_keys": 0,
+      "unmatched_child_rows": 0,
+      "unmatched_distinct_keys": 0,
+      "parent_duplicate_key_rows": 0
+    },
+    "products.category -> translation.category": {
+      "child_rows": 32951,
+      "missing_child_keys": 610,
+      "unmatched_child_rows": 13,
+      "unmatched_distinct_keys": 2,
+      "parent_duplicate_key_rows": 0
+    },
+    "customers.postcode -> geolocation.postcode": {
+      "child_rows": 99441,
+      "missing_child_keys": 0,
+      "unmatched_child_rows": 278,
+      "unmatched_distinct_keys": 157,
+      "parent_duplicate_key_rows": 981148
+    },
+    "sellers.postcode -> geolocation.postcode": {
+      "child_rows": 3095,
+      "missing_child_keys": 0,
+      "unmatched_child_rows": 7,
+      "unmatched_distinct_keys": 7,
+      "parent_duplicate_key_rows": 981148
+    }
+  },
+  "quality": {
+    "statuses": {
+      "delivered": 96478,
+      "shipped": 1107,
+      "canceled": 625,
+      "unavailable": 609,
+      "invoiced": 314,
+      "processing": 301,
+      "created": 5,
+      "approved": 2,
+      "other": 0
+    },
+    "monthly_orders": [
+      {
+        "month": "2016-09",
+        "orders": 4,
+        "delivered": 1
+      },
+      {
+        "month": "2016-10",
+        "orders": 324,
+        "delivered": 265
+      },
+      {
+        "month": "2016-12",
+        "orders": 1,
+        "delivered": 1
+      },
+      {
+        "month": "2017-01",
+        "orders": 800,
+        "delivered": 750
+      },
+      {
+        "month": "2017-02",
+        "orders": 1780,
+        "delivered": 1653
+      },
+      {
+        "month": "2017-03",
+        "orders": 2682,
+        "delivered": 2546
+      },
+      {
+        "month": "2017-04",
+        "orders": 2404,
+        "delivered": 2303
+      },
+      {
+        "month": "2017-05",
+        "orders": 3700,
+        "delivered": 3546
+      },
+      {
+        "month": "2017-06",
+        "orders": 3245,
+        "delivered": 3135
+      },
+      {
+        "month": "2017-07",
+        "orders": 4026,
+        "delivered": 3872
+      },
+      {
+        "month": "2017-08",
+        "orders": 4331,
+        "delivered": 4193
+      },
+      {
+        "month": "2017-09",
+        "orders": 4285,
+        "delivered": 4150
+      },
+      {
+        "month": "2017-10",
+        "orders": 4631,
+        "delivered": 4478
+      },
+      {
+        "month": "2017-11",
+        "orders": 7544,
+        "delivered": 7289
+      },
+      {
+        "month": "2017-12",
+        "orders": 5673,
+        "delivered": 5513
+      },
+      {
+        "month": "2018-01",
+        "orders": 7269,
+        "delivered": 7069
+      },
+      {
+        "month": "2018-02",
+        "orders": 6728,
+        "delivered": 6555
+      },
+      {
+        "month": "2018-03",
+        "orders": 7211,
+        "delivered": 7003
+      },
+      {
+        "month": "2018-04",
+        "orders": 6939,
+        "delivered": 6798
+      },
+      {
+        "month": "2018-05",
+        "orders": 6873,
+        "delivered": 6749
+      },
+      {
+        "month": "2018-06",
+        "orders": 6167,
+        "delivered": 6099
+      },
+      {
+        "month": "2018-07",
+        "orders": 6292,
+        "delivered": 6159
+      },
+      {
+        "month": "2018-08",
+        "orders": 6512,
+        "delivered": 6351
+      },
+      {
+        "month": "2018-09",
+        "orders": 16,
+        "delivered": 0
+      },
+      {
+        "month": "2018-10",
+        "orders": 4,
+        "delivered": 0
+      }
+    ],
+    "dates": {
+      "order_purchase_timestamp": {
+        "missing": 0,
+        "invalid_nonmissing": 0,
+        "min": "2016-09-04 21:15:19",
+        "max": "2018-10-17 17:30:18"
+      },
+      "order_approved_at": {
+        "missing": 160,
+        "invalid_nonmissing": 0,
+        "min": "2016-09-15 12:16:38",
+        "max": "2018-09-03 17:40:06"
+      },
+      "order_delivered_carrier_date": {
+        "missing": 1783,
+        "invalid_nonmissing": 0,
+        "min": "2016-10-08 10:34:01",
+        "max": "2018-09-11 19:48:28"
+      },
+      "order_delivered_customer_date": {
+        "missing": 2965,
+        "invalid_nonmissing": 0,
+        "min": "2016-10-11 13:46:32",
+        "max": "2018-10-17 13:22:46"
+      },
+      "order_estimated_delivery_date": {
+        "missing": 0,
+        "invalid_nonmissing": 0,
+        "min": "2016-09-30 00:00:00",
+        "max": "2018-11-12 00:00:00"
+      },
+      "shipping_limit_date": {
+        "missing": 0,
+        "invalid_nonmissing": 0,
+        "min": "2016-09-19 00:15:34",
+        "max": "2020-04-09 22:35:08"
+      },
+      "review_creation_date": {
+        "missing": 0,
+        "invalid_nonmissing": 0,
+        "min": "2016-10-02 00:00:00",
+        "max": "2018-08-31 00:00:00"
+      },
+      "review_answer_timestamp": {
+        "missing": 0,
+        "invalid_nonmissing": 0,
+        "min": "2016-10-07 18:32:28",
+        "max": "2018-10-29 12:27:35"
+      }
+    },
+    "chronology": {
+      "approval_before_purchase": 0,
+      "carrier_before_purchase": 166,
+      "delivery_before_purchase": 0,
+      "delivery_before_carrier": 23,
+      "estimate_before_purchase_day": 0,
+      "review_answer_before_creation": 0
+    },
+    "delivered_purchase_start": "2016-09-15 12:16:38",
+    "delivered_purchase_end": "2018-08-29 15:00:37",
+    "orders_missing_items": 775,
+    "delivered_missing_items": 0,
+    "orders_missing_payments": 1,
+    "delivered_missing_payments": 1,
+    "orders_missing_reviews": 768,
+    "delivered_missing_reviews": 646,
+    "delivered_missing_approval": 14,
+    "delivered_missing_carrier": 2,
+    "delivered_missing_delivery": 8,
+    "delivery_eligible_orders": 96470,
+    "late_orders": 6534,
+    "delivery_days": {
+      "count": 96470,
+      "min": 0.5334143518518518,
+      "median": 10.217476851851853,
+      "mean": 12.558217098051975,
+      "p95": 29.274046296296298,
+      "p99": 46.05026180555554,
+      "max": 209.6286111111111,
+      "q1": 6.766203703703704,
+      "q3": 15.720182291666667,
+      "mad": 4.143611111111111,
+      "iqr_flag_count": 4896
+    },
+    "unique_customers_all": 96096,
+    "unique_customers_delivered": 93358,
+    "repeat_customers_delivered_full_window": 2801,
+    "frequency_distribution": [
+      {
+        "orders_per_customer": 1,
+        "customers": 90557
+      },
+      {
+        "orders_per_customer": 2,
+        "customers": 2573
+      },
+      {
+        "orders_per_customer": 3,
+        "customers": 181
+      },
+      {
+        "orders_per_customer": 4,
+        "customers": 28
+      },
+      {
+        "orders_per_customer": 5,
+        "customers": 9
+      },
+      {
+        "orders_per_customer": 6,
+        "customers": 5
+      },
+      {
+        "orders_per_customer": 7,
+        "customers": 3
+      },
+      {
+        "orders_per_customer": 9,
+        "customers": 1
+      },
+      {
+        "orders_per_customer": 15,
+        "customers": 1
+      }
+    ],
+    "orders_with_multiple_items": 9803,
+    "orders_with_multiple_payments": 2961,
+    "orders_with_multiple_reviews": 547,
+    "orders_with_multiple_sellers": 1278,
+    "orders_distinct_customer_ids": 99441,
+    "customers_without_orders": 0,
+    "orders_missing_items_by_status": {
+      "delivered": 0,
+      "shipped": 1,
+      "canceled": 164,
+      "unavailable": 603,
+      "invoiced": 2,
+      "processing": 0,
+      "created": 5,
+      "approved": 0
+    },
+    "order_date_missing_by_status": {
+      "delivered": {
+        "order_purchase_timestamp": 0,
+        "order_approved_at": 14,
+        "order_delivered_carrier_date": 2,
+        "order_delivered_customer_date": 8,
+        "order_estimated_delivery_date": 0
+      },
+      "shipped": {
+        "order_purchase_timestamp": 0,
+        "order_approved_at": 0,
+        "order_delivered_carrier_date": 0,
+        "order_delivered_customer_date": 1107,
+        "order_estimated_delivery_date": 0
+      },
+      "canceled": {
+        "order_purchase_timestamp": 0,
+        "order_approved_at": 141,
+        "order_delivered_carrier_date": 550,
+        "order_delivered_customer_date": 619,
+        "order_estimated_delivery_date": 0
+      },
+      "unavailable": {
+        "order_purchase_timestamp": 0,
+        "order_approved_at": 0,
+        "order_delivered_carrier_date": 609,
+        "order_delivered_customer_date": 609,
+        "order_estimated_delivery_date": 0
+      },
+      "invoiced": {
+        "order_purchase_timestamp": 0,
+        "order_approved_at": 0,
+        "order_delivered_carrier_date": 314,
+        "order_delivered_customer_date": 314,
+        "order_estimated_delivery_date": 0
+      },
+      "processing": {
+        "order_purchase_timestamp": 0,
+        "order_approved_at": 0,
+        "order_delivered_carrier_date": 301,
+        "order_delivered_customer_date": 301,
+        "order_estimated_delivery_date": 0
+      },
+      "created": {
+        "order_purchase_timestamp": 0,
+        "order_approved_at": 5,
+        "order_delivered_carrier_date": 5,
+        "order_delivered_customer_date": 5,
+        "order_estimated_delivery_date": 0
+      },
+      "approved": {
+        "order_purchase_timestamp": 0,
+        "order_approved_at": 0,
+        "order_delivered_carrier_date": 2,
+        "order_delivered_customer_date": 2,
+        "order_estimated_delivery_date": 0
+      }
+    },
+    "shipping_limit_after_2018_rows": 4,
+    "shipping_limit_after_2018_orders": 3,
+    "review_blank_breakdown": {
+      "review_comment_title": {
+        "empty": 87656,
+        "whitespace_only": 2
+      },
+      "review_comment_message": {
+        "empty": 58247,
+        "whitespace_only": 27
+      }
+    },
+    "reviews_unique_orders": 98673,
+    "reviews_unique_ids": 98410,
+    "reviews_duplicate_id_order_pairs": 0,
+    "reviews_invalid_scores": 0,
+    "raw_categories": 73,
+    "geolocation_unique_postcodes": 19015,
+    "geolocation_postcodes_multiple_states": 8,
+    "geolocation_postcodes_multiple_city_spellings": 8556,
+    "geolocation_invalid_global_coordinates": 0,
+    "geolocation_outside_coarse_brazil_box": 42,
+    "geolocation_box_note": "粗略矩形只用于待核查标记，不是国界判定，不删记录。",
+    "money": {
+      "currency": "BRL",
+      "unit": "cents",
+      "invalid_price": 0,
+      "negative_price": 0,
+      "invalid_freight": 0,
+      "negative_freight": 0,
+      "invalid_payment": 0,
+      "negative_payment": 0,
+      "all_item_revenue_cents": 1359164370,
+      "all_freight_cents": 225190954,
+      "all_payment_cents": 1600887212,
+      "delivered_item_revenue_cents": 1322149811,
+      "delivered_item_rows": 110197,
+      "naive_items_payments_reviews_revenue_cents": 1387647173,
+      "comparable_orders": 98665,
+      "exact_match_orders": 98089,
+      "difference_over_one_cent_orders": 303,
+      "sum_payment_minus_items_freight_cents": 287039,
+      "difference_cents": {
+        "count": 98665,
+        "min": -5162.0,
+        "median": 0.0,
+        "mean": 2.909228196422237,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 18281.0,
+        "q1": 0.0,
+        "q3": 0.0,
+        "mad": 0.0,
+        "iqr_flag_count": 576
+      },
+      "item_price_cents": {
+        "count": 112650,
+        "min": 85.0,
+        "median": 7499.0,
+        "mean": 12065.373901464714,
+        "p95": 34990.0,
+        "p99": 89000.0,
+        "max": 673500.0,
+        "q1": 3990.0,
+        "q3": 13490.0,
+        "mad": 4209.0,
+        "iqr_flag_count": 8427
+      }
+    },
+    "numeric_fields": {
+      "order_item_id": {
+        "invalid_nonmissing": 0,
+        "negative": 0,
+        "zero": 0,
+        "fractional": 0
+      },
+      "payment_sequential": {
+        "invalid_nonmissing": 0,
+        "negative": 0,
+        "zero": 0,
+        "fractional": 0
+      },
+      "payment_installments": {
+        "invalid_nonmissing": 0,
+        "negative": 0,
+        "zero": 2,
+        "fractional": 0
+      },
+      "product_name_lenght": {
+        "invalid_nonmissing": 0,
+        "negative": 0,
+        "zero": 0,
+        "fractional": 0
+      },
+      "product_description_lenght": {
+        "invalid_nonmissing": 0,
+        "negative": 0,
+        "zero": 0,
+        "fractional": 0
+      },
+      "product_photos_qty": {
+        "invalid_nonmissing": 0,
+        "negative": 0,
+        "zero": 0,
+        "fractional": 0
+      },
+      "product_weight_g": {
+        "invalid_nonmissing": 0,
+        "negative": 0,
+        "zero": 4,
+        "fractional": 0
+      },
+      "product_length_cm": {
+        "invalid_nonmissing": 0,
+        "negative": 0,
+        "zero": 0,
+        "fractional": 0
+      },
+      "product_height_cm": {
+        "invalid_nonmissing": 0,
+        "negative": 0,
+        "zero": 0,
+        "fractional": 0
+      },
+      "product_width_cm": {
+        "invalid_nonmissing": 0,
+        "negative": 0,
+        "zero": 0,
+        "fractional": 0
+      }
+    }
+  }
+}

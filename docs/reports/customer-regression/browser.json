@@ -1,0 +1,18 @@
+{
+  "date": "2026-09-22T09:12:49.030Z",
+  "default_cards": [
+    "6,100",
+    "5,949",
+    "151",
+    "0.95%"
+  ],
+  "desktop": true,
+  "mobile_no_overflow": true,
+  "long_window": true,
+  "dimension_filters": true,
+  "draft_scope": true,
+  "error_recovery": true,
+  "empty_rate": true,
+  "stale_request_discarded": true,
+  "page_errors": []
+}

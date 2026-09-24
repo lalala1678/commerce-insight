@@ -1,0 +1,225 @@
+{
+  "verified_at_utc": "2026-09-22T09:12:20.400200+00:00",
+  "data_version": "2ca51e3f812486e6",
+  "source_hashes": {
+    "olist_orders_dataset.csv": "8df58ef3d2d7e9944010f7beecd9b75367f5588ec6e3c91cec19ae3345ef9ecf",
+    "olist_order_items_dataset.csv": "0bc4d068c4fe38cbb01bd90e8746e3c613fe7b4baef75fab7b0e329701c3e279",
+    "olist_customers_dataset.csv": "983a422239e1712ded753b3bf9ecf47dc73f144d306029dcfa99e70a226883d2",
+    "olist_products_dataset.csv": "3e6569628a17fbc75fd206ee357b59e20364b9afa90f5b6cd5b4d624c58aa9cc",
+    "olist_order_reviews_dataset.csv": "012b61c7593e34f51fa614efdf802b9c7056ce6aae5307ddb93236e7cfc797d7"
+  },
+  "method": "Independent CSV and HTTP; no report implementation reuse",
+  "cases": [
+    {
+      "filters": {
+        "start": "2018-07-01",
+        "end": "2018-07-31"
+      },
+      "current": {
+        "order_count": 6159,
+        "revenue_cents": 86795346,
+        "item_count": 6963,
+        "customer_count": 6100,
+        "average_order_value_cents": 14092.441305406723
+      },
+      "previous": {
+        "order_count": 6099,
+        "revenue_cents": 85607786,
+        "item_count": 7010,
+        "customer_count": 6061,
+        "average_order_value_cents": 14036.364322020003
+      },
+      "delta_cents": 1187560,
+      "anomalies": [],
+      "insufficient_days": 0,
+      "contributions_reconcile": true,
+      "delivery_and_strata_match": true,
+      "all_days_match": true
+    },
+    {
+      "filters": {
+        "start": "2018-07-23",
+        "end": "2018-07-29"
+      },
+      "current": {
+        "order_count": 1610,
+        "revenue_cents": 23649842,
+        "item_count": 1861,
+        "customer_count": 1600,
+        "average_order_value_cents": 14689.342857142858
+      },
+      "previous": {
+        "order_count": 1649,
+        "revenue_cents": 21745720,
+        "item_count": 1843,
+        "customer_count": 1624,
+        "average_order_value_cents": 13187.216494845361
+      },
+      "delta_cents": 1904122,
+      "anomalies": [],
+      "insufficient_days": 0,
+      "contributions_reconcile": true,
+      "delivery_and_strata_match": true,
+      "all_days_match": true
+    },
+    {
+      "filters": {
+        "start": "2017-11-20",
+        "end": "2017-11-26"
+      },
+      "current": {
+        "order_count": 2915,
+        "revenue_cents": 39790624,
+        "item_count": 3428,
+        "customer_count": 2875,
+        "average_order_value_cents": 13650.299828473413
+      },
+      "previous": {
+        "order_count": 1259,
+        "revenue_cents": 17195943,
+        "item_count": 1458,
+        "customer_count": 1245,
+        "average_order_value_cents": 13658.413820492455
+      },
+      "delta_cents": 22594681,
+      "anomalies": [
+        {
+          "day": "2017-11-23",
+          "order_count": 268,
+          "baseline_n": 8,
+          "baseline_median": 140.0,
+          "threshold": 70.0,
+          "status": "high",
+          "reason": "偏离历史基线，待核查",
+          "history_start": "2017-09-28",
+          "history_end": "2017-11-16"
+        },
+        {
+          "day": "2017-11-24",
+          "order_count": 1147,
+          "baseline_n": 8,
+          "baseline_median": 134.0,
+          "threshold": 71.1648,
+          "status": "high",
+          "reason": "偏离历史基线，待核查",
+          "history_start": "2017-09-29",
+          "history_end": "2017-11-17"
+        },
+        {
+          "day": "2017-11-25",
+          "order_count": 487,
+          "baseline_n": 8,
+          "baseline_median": 105.5,
+          "threshold": 52.75,
+          "status": "high",
+          "reason": "偏离历史基线，待核查",
+          "history_start": "2017-09-30",
+          "history_end": "2017-11-18"
+        },
+        {
+          "day": "2017-11-26",
+          "order_count": 382,
+          "baseline_n": 8,
+          "baseline_median": 133.0,
+          "threshold": 66.5,
+          "status": "high",
+          "reason": "偏离历史基线，待核查",
+          "history_start": "2017-10-01",
+          "history_end": "2017-11-19"
+        }
+      ],
+      "insufficient_days": 0,
+      "contributions_reconcile": true,
+      "delivery_and_strata_match": true,
+      "all_days_match": true
+    },
+    {
+      "filters": {
+        "start": "2018-07-01",
+        "end": "2018-07-31",
+        "category": "cama_mesa_banho",
+        "state": "SP"
+      },
+      "current": {
+        "order_count": 262,
+        "revenue_cents": 2710604,
+        "item_count": 318,
+        "customer_count": 262,
+        "average_order_value_cents": 10345.81679389313
+      },
+      "previous": {
+        "order_count": 350,
+        "revenue_cents": 3774078,
+        "item_count": 417,
+        "customer_count": 348,
+        "average_order_value_cents": 10783.08
+      },
+      "delta_cents": -1063474,
+      "anomalies": [
+        {
+          "day": "2018-07-12",
+          "order_count": 1,
+          "baseline_n": 8,
+          "baseline_median": 12.0,
+          "threshold": 10,
+          "status": "low",
+          "reason": "偏离历史基线，待核查",
+          "history_start": "2018-05-17",
+          "history_end": "2018-07-05"
+        }
+      ],
+      "insufficient_days": 0,
+      "contributions_reconcile": true,
+      "delivery_and_strata_match": true,
+      "all_days_match": true
+    },
+    {
+      "filters": {
+        "start": "2018-07-23",
+        "end": "2018-07-29",
+        "state": "XX"
+      },
+      "current": {
+        "order_count": 0,
+        "revenue_cents": 0,
+        "item_count": 0,
+        "customer_count": 0,
+        "average_order_value_cents": null
+      },
+      "previous": {
+        "order_count": 0,
+        "revenue_cents": 0,
+        "item_count": 0,
+        "customer_count": 0,
+        "average_order_value_cents": null
+      },
+      "delta_cents": 0,
+      "anomalies": [],
+      "insufficient_days": 7,
+      "contributions_reconcile": true,
+      "delivery_and_strata_match": true,
+      "all_days_match": true
+    },
+    {
+      "filters": {
+        "start": "2017-01-01",
+        "end": "2017-01-07"
+      },
+      "current": {
+        "order_count": 40,
+        "revenue_cents": 266518,
+        "item_count": 41,
+        "customer_count": 26,
+        "average_order_value_cents": 6662.95
+      },
+      "previous": null,
+      "delta_cents": null,
+      "anomalies": [],
+      "insufficient_days": 7,
+      "contributions_reconcile": true,
+      "delivery_and_strata_match": true,
+      "all_days_match": true
+    }
+  ],
+  "sqlite_case_matches_mysql": true
+}

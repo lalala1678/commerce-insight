@@ -1,0 +1,114 @@
+{
+  "verified_at_utc": "2026-09-19T08:28:18.856777+00:00",
+  "database": "mysql",
+  "data_version": "2ca51e3f812486e6",
+  "cases": [
+    {
+      "name": "all_delivered",
+      "filters": {
+        "start": "2016-09-04",
+        "end": "2018-10-17"
+      },
+      "expected": {
+        "revenue_cents": 1322149811,
+        "order_count": 96478,
+        "item_count": 110197,
+        "customer_count": 93358,
+        "average_order_value_cents": 13704.15857501192
+      },
+      "matches": true,
+      "elapsed_seconds": 20.562
+    },
+    {
+      "name": "july",
+      "filters": {
+        "start": "2018-07-01",
+        "end": "2018-07-31"
+      },
+      "expected": {
+        "revenue_cents": 86795346,
+        "order_count": 6159,
+        "item_count": 6963,
+        "customer_count": 6100,
+        "average_order_value_cents": 14092.441305406723
+      },
+      "matches": true,
+      "elapsed_seconds": 1.372
+    },
+    {
+      "name": "july_category_state",
+      "filters": {
+        "start": "2018-07-01",
+        "end": "2018-07-31",
+        "category": "cama_mesa_banho",
+        "state": "SP"
+      },
+      "expected": {
+        "revenue_cents": 2710604,
+        "order_count": 262,
+        "item_count": 318,
+        "customer_count": 262,
+        "average_order_value_cents": 10345.81679389313
+      },
+      "matches": true,
+      "elapsed_seconds": 0.651
+    },
+    {
+      "name": "june_rj",
+      "filters": {
+        "start": "2018-06-01",
+        "end": "2018-06-30",
+        "state": "RJ"
+      },
+      "expected": {
+        "revenue_cents": 10012389,
+        "order_count": 707,
+        "item_count": 809,
+        "customer_count": 703,
+        "average_order_value_cents": 14161.794908062235
+      },
+      "matches": true,
+      "elapsed_seconds": 0.54
+    },
+    {
+      "name": "empty_filter",
+      "filters": {
+        "start": "2018-07-01",
+        "end": "2018-07-31",
+        "state": "XX"
+      },
+      "expected": {
+        "revenue_cents": 0,
+        "order_count": 0,
+        "item_count": 0,
+        "customer_count": 0,
+        "average_order_value_cents": null
+      },
+      "matches": true,
+      "elapsed_seconds": 0.016
+    },
+    {
+      "name": "quoted_filter",
+      "filters": {
+        "start": "2018-07-01",
+        "end": "2018-07-31",
+        "category": "x' OR 1=1--"
+      },
+      "expected": {
+        "revenue_cents": 0,
+        "order_count": 0,
+        "item_count": 0,
+        "customer_count": 0,
+        "average_order_value_cents": null
+      },
+      "matches": true,
+      "elapsed_seconds": 0.015
+    }
+  ],
+  "raw_sql_api_reconciled": true,
+  "daily_aggregate_reconciled": true,
+  "missing_payment_retained": true,
+  "pagination_and_detail": true,
+  "invalid_input_and_not_found": true,
+  "notes": "Durations are one local run, not a load-test or SLA."
+}

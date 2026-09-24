@@ -1,0 +1,675 @@
+{
+  "verified_at_utc": "2026-09-22T08:39:36.114415+00:00",
+  "data_version": "2ca51e3f812486e6",
+  "source_hashes": {
+    "olist_orders_dataset.csv": "8df58ef3d2d7e9944010f7beecd9b75367f5588ec6e3c91cec19ae3345ef9ecf",
+    "olist_order_items_dataset.csv": "0bc4d068c4fe38cbb01bd90e8746e3c613fe7b4baef75fab7b0e329701c3e279",
+    "olist_customers_dataset.csv": "983a422239e1712ded753b3bf9ecf47dc73f144d306029dcfa99e70a226883d2",
+    "olist_products_dataset.csv": "3e6569628a17fbc75fd206ee357b59e20364b9afa90f5b6cd5b4d624c58aa9cc"
+  },
+  "method": "Independent CSV / Decimal; actual HTTP, no business-function reuse",
+  "rules": "R<=30, F>=2, M>=20000 cents; exploratory thresholds, not validated value segments",
+  "cases": [
+    {
+      "filters": {
+        "start": "2018-07-01",
+        "end": "2018-07-31"
+      },
+      "summary": {
+        "customer_count": 6100,
+        "new_customers": 5949,
+        "returning_customers": 151,
+        "repeat_customers": 58,
+        "repeat_rate": 0.009508196721311476,
+        "order_count": 6159,
+        "revenue_cents": 86795346,
+        "single_purchase_share": 0.9904918032786886
+      },
+      "distribution": {
+        "recency_days": {
+          "min": 0,
+          "median": 12.0,
+          "p75": 21,
+          "max": 30
+        },
+        "frequency": {
+          "min": 1,
+          "median": 1.0,
+          "p75": 1,
+          "max": 3
+        },
+        "monetary_cents": {
+          "min": 300,
+          "median": 8890.0,
+          "p75": 15200,
+          "max": 716000
+        }
+      },
+      "frequency_distribution": [
+        {
+          "frequency": 1,
+          "customer_count": 6042
+        },
+        {
+          "frequency": 2,
+          "customer_count": 57
+        },
+        {
+          "frequency": 3,
+          "customer_count": 1
+        }
+      ],
+      "segments": [
+        {
+          "key": "111",
+          "label": "距末次购买≤30天 / 购买≥2次 / 金额≥R$200",
+          "customer_count": 26,
+          "order_count": 53,
+          "revenue_cents": 1034657
+        },
+        {
+          "key": "110",
+          "label": "距末次购买≤30天 / 购买≥2次 / 金额<R$200",
+          "customer_count": 32,
+          "order_count": 64,
+          "revenue_cents": 341100
+        },
+        {
+          "key": "101",
+          "label": "距末次购买≤30天 / 购买1次 / 金额≥R$200",
+          "customer_count": 922,
+          "order_count": 922,
+          "revenue_cents": 43339047
+        },
+        {
+          "key": "100",
+          "label": "距末次购买≤30天 / 购买1次 / 金额<R$200",
+          "customer_count": 5120,
+          "order_count": 5120,
+          "revenue_cents": 42080542
+        },
+        {
+          "key": "011",
+          "label": "距末次购买>30天 / 购买≥2次 / 金额≥R$200",
+          "customer_count": 0,
+          "order_count": 0,
+          "revenue_cents": 0
+        },
+        {
+          "key": "010",
+          "label": "距末次购买>30天 / 购买≥2次 / 金额<R$200",
+          "customer_count": 0,
+          "order_count": 0,
+          "revenue_cents": 0
+        },
+        {
+          "key": "001",
+          "label": "距末次购买>30天 / 购买1次 / 金额≥R$200",
+          "customer_count": 0,
+          "order_count": 0,
+          "revenue_cents": 0
+        },
+        {
+          "key": "000",
+          "label": "距末次购买>30天 / 购买1次 / 金额<R$200",
+          "customer_count": 0,
+          "order_count": 0,
+          "revenue_cents": 0
+        }
+      ],
+      "matches_raw": true
+    },
+    {
+      "filters": {
+        "start": "2018-02-01",
+        "end": "2018-07-31"
+      },
+      "summary": {
+        "customer_count": 38560,
+        "new_customers": 37977,
+        "returning_customers": 583,
+        "repeat_customers": 747,
+        "repeat_rate": 0.01937240663900415,
+        "order_count": 39363,
+        "revenue_cents": 545490348,
+        "single_purchase_share": 0.9806275933609958
+      },
+      "distribution": {
+        "recency_days": {
+          "min": 0,
+          "median": 94.0,
+          "p75": 138,
+          "max": 180
+        },
+        "frequency": {
+          "min": 1,
+          "median": 1.0,
+          "p75": 1,
+          "max": 5
+        },
+        "monetary_cents": {
+          "min": 85,
+          "median": 8990.0,
+          "p75": 15180,
+          "max": 716000
+        }
+      },
+      "frequency_distribution": [
+        {
+          "frequency": 1,
+          "customer_count": 37813
+        },
+        {
+          "frequency": 2,
+          "customer_count": 701
+        },
+        {
+          "frequency": 3,
+          "customer_count": 38
+        },
+        {
+          "frequency": 4,
+          "customer_count": 6
+        },
+        {
+          "frequency": 5,
+          "customer_count": 2
+        }
+      ],
+      "segments": [
+        {
+          "key": "111",
+          "label": "距末次购买≤30天 / 购买≥2次 / 金额≥R$200",
+          "customer_count": 64,
+          "order_count": 133,
+          "revenue_cents": 2617672
+        },
+        {
+          "key": "110",
+          "label": "距末次购买≤30天 / 购买≥2次 / 金额<R$200",
+          "customer_count": 78,
+          "order_count": 156,
+          "revenue_cents": 875469
+        },
+        {
+          "key": "101",
+          "label": "距末次购买≤30天 / 购买1次 / 金额≥R$200",
+          "customer_count": 912,
+          "order_count": 912,
+          "revenue_cents": 42940390
+        },
+        {
+          "key": "100",
+          "label": "距末次购买≤30天 / 购买1次 / 金额<R$200",
+          "customer_count": 5046,
+          "order_count": 5046,
+          "revenue_cents": 41421499
+        },
+        {
+          "key": "011",
+          "label": "距末次购买>30天 / 购买≥2次 / 金额≥R$200",
+          "customer_count": 257,
+          "order_count": 550,
+          "revenue_cents": 11948327
+        },
+        {
+          "key": "010",
+          "label": "距末次购买>30天 / 购买≥2次 / 金额<R$200",
+          "customer_count": 348,
+          "order_count": 711,
+          "revenue_cents": 4196235
+        },
+        {
+          "key": "001",
+          "label": "距末次购买>30天 / 购买1次 / 金额≥R$200",
+          "customer_count": 4850,
+          "order_count": 4850,
+          "revenue_cents": 218707055
+        },
+        {
+          "key": "000",
+          "label": "距末次购买>30天 / 购买1次 / 金额<R$200",
+          "customer_count": 27005,
+          "order_count": 27005,
+          "revenue_cents": 222783701
+        }
+      ],
+      "matches_raw": true
+    },
+    {
+      "filters": {
+        "start": "2017-01-01",
+        "end": "2018-07-31"
+      },
+      "summary": {
+        "customer_count": 86960,
+        "new_customers": 86950,
+        "returning_customers": 10,
+        "repeat_customers": 2609,
+        "repeat_rate": 0.03000229990800368,
+        "order_count": 89860,
+        "revenue_cents": 1234245049,
+        "single_purchase_share": 0.9699977000919964
+      },
+      "distribution": {
+        "recency_days": {
+          "min": 0,
+          "median": 202.0,
+          "p75": 327,
+          "max": 572
+        },
+        "frequency": {
+          "min": 1,
+          "median": 1.0,
+          "p75": 1,
+          "max": 12
+        },
+        "monetary_cents": {
+          "min": 85,
+          "median": 8990.0,
+          "p75": 15500,
+          "max": 1344000
+        }
+      },
+      "frequency_distribution": [
+        {
+          "frequency": 1,
+          "customer_count": 84351
+        },
+        {
+          "frequency": 2,
+          "customer_count": 2399
+        },
+        {
+          "frequency": 3,
+          "customer_count": 168
+        },
+        {
+          "frequency": 4,
+          "customer_count": 24
+        },
+        {
+          "frequency": 5,
+          "customer_count": 9
+        },
+        {
+          "frequency": 6,
+          "customer_count": 4
+        },
+        {
+          "frequency": 7,
+          "customer_count": 3
+        },
+        {
+          "frequency": 9,
+          "customer_count": 1
+        },
+        {
+          "frequency": 12,
+          "customer_count": 1
+        }
+      ],
+      "segments": [
+        {
+          "key": "111",
+          "label": "距末次购买≤30天 / 购买≥2次 / 金额≥R$200",
+          "customer_count": 101,
+          "order_count": 225,
+          "revenue_cents": 4279145
+        },
+        {
+          "key": "110",
+          "label": "距末次购买≤30天 / 购买≥2次 / 金额<R$200",
+          "customer_count": 107,
+          "order_count": 215,
+          "revenue_cents": 1213415
+        },
+        {
+          "key": "101",
+          "label": "距末次购买≤30天 / 购买1次 / 金额≥R$200",
+          "customer_count": 899,
+          "order_count": 899,
+          "revenue_cents": 42420970
+        },
+        {
+          "key": "100",
+          "label": "距末次购买≤30天 / 购买1次 / 金额<R$200",
+          "customer_count": 4993,
+          "order_count": 4993,
+          "revenue_cents": 41009928
+        },
+        {
+          "key": "011",
+          "label": "距末次购买>30天 / 购买≥2次 / 金额≥R$200",
+          "customer_count": 1056,
+          "order_count": 2310,
+          "revenue_cents": 46119847
+        },
+        {
+          "key": "010",
+          "label": "距末次购买>30天 / 购买≥2次 / 金额<R$200",
+          "customer_count": 1345,
+          "order_count": 2759,
+          "revenue_cents": 16021161
+        },
+        {
+          "key": "001",
+          "label": "距末次购买>30天 / 购买1次 / 金额≥R$200",
+          "customer_count": 12052,
+          "order_count": 12052,
+          "revenue_cents": 542890888
+        },
+        {
+          "key": "000",
+          "label": "距末次购买>30天 / 购买1次 / 金额<R$200",
+          "customer_count": 66407,
+          "order_count": 66407,
+          "revenue_cents": 540289695
+        }
+      ],
+      "matches_raw": true
+    },
+    {
+      "filters": {
+        "start": "2018-07-01",
+        "end": "2018-07-31",
+        "category": "cama_mesa_banho",
+        "state": "SP"
+      },
+      "summary": {
+        "customer_count": 262,
+        "new_customers": 256,
+        "returning_customers": 6,
+        "repeat_customers": 0,
+        "repeat_rate": 0.0,
+        "order_count": 262,
+        "revenue_cents": 2710604,
+        "single_purchase_share": 1.0
+      },
+      "distribution": {
+        "recency_days": {
+          "min": 0,
+          "median": 12.0,
+          "p75": 22,
+          "max": 30
+        },
+        "frequency": {
+          "min": 1,
+          "median": 1.0,
+          "p75": 1,
+          "max": 1
+        },
+        "monetary_cents": {
+          "min": 750,
+          "median": 7990.0,
+          "p75": 12490,
+          "max": 126000
+        }
+      },
+      "frequency_distribution": [
+        {
+          "frequency": 1,
+          "customer_count": 262
+        }
+      ],
+      "segments": [
+        {
+          "key": "111",
+          "label": "距末次购买≤30天 / 购买≥2次 / 金额≥R$200",
+          "customer_count": 0,
+          "order_count": 0,
+          "revenue_cents": 0
+        },
+        {
+          "key": "110",
+          "label": "距末次购买≤30天 / 购买≥2次 / 金额<R$200",
+          "customer_count": 0,
+          "order_count": 0,
+          "revenue_cents": 0
+        },
+        {
+          "key": "101",
+          "label": "距末次购买≤30天 / 购买1次 / 金额≥R$200",
+          "customer_count": 16,
+          "order_count": 16,
+          "revenue_cents": 658913
+        },
+        {
+          "key": "100",
+          "label": "距末次购买≤30天 / 购买1次 / 金额<R$200",
+          "customer_count": 246,
+          "order_count": 246,
+          "revenue_cents": 2051691
+        },
+        {
+          "key": "011",
+          "label": "距末次购买>30天 / 购买≥2次 / 金额≥R$200",
+          "customer_count": 0,
+          "order_count": 0,
+          "revenue_cents": 0
+        },
+        {
+          "key": "010",
+          "label": "距末次购买>30天 / 购买≥2次 / 金额<R$200",
+          "customer_count": 0,
+          "order_count": 0,
+          "revenue_cents": 0
+        },
+        {
+          "key": "001",
+          "label": "距末次购买>30天 / 购买1次 / 金额≥R$200",
+          "customer_count": 0,
+          "order_count": 0,
+          "revenue_cents": 0
+        },
+        {
+          "key": "000",
+          "label": "距末次购买>30天 / 购买1次 / 金额<R$200",
+          "customer_count": 0,
+          "order_count": 0,
+          "revenue_cents": 0
+        }
+      ],
+      "matches_raw": true
+    },
+    {
+      "filters": {
+        "start": "2018-07-02",
+        "end": "2018-07-02",
+        "state": "RJ"
+      },
+      "summary": {
+        "customer_count": 24,
+        "new_customers": 23,
+        "returning_customers": 1,
+        "repeat_customers": 0,
+        "repeat_rate": 0.0,
+        "order_count": 24,
+        "revenue_cents": 232198,
+        "single_purchase_share": 1.0
+      },
+      "distribution": {
+        "recency_days": {
+          "min": 0,
+          "median": 0.0,
+          "p75": 0,
+          "max": 0
+        },
+        "frequency": {
+          "min": 1,
+          "median": 1.0,
+          "p75": 1,
+          "max": 1
+        },
+        "monetary_cents": {
+          "min": 999,
+          "median": 9370.0,
+          "p75": 12990,
+          "max": 29999
+        }
+      },
+      "frequency_distribution": [
+        {
+          "frequency": 1,
+          "customer_count": 24
+        }
+      ],
+      "segments": [
+        {
+          "key": "111",
+          "label": "距末次购买≤30天 / 购买≥2次 / 金额≥R$200",
+          "customer_count": 0,
+          "order_count": 0,
+          "revenue_cents": 0
+        },
+        {
+          "key": "110",
+          "label": "距末次购买≤30天 / 购买≥2次 / 金额<R$200",
+          "customer_count": 0,
+          "order_count": 0,
+          "revenue_cents": 0
+        },
+        {
+          "key": "101",
+          "label": "距末次购买≤30天 / 购买1次 / 金额≥R$200",
+          "customer_count": 1,
+          "order_count": 1,
+          "revenue_cents": 29999
+        },
+        {
+          "key": "100",
+          "label": "距末次购买≤30天 / 购买1次 / 金额<R$200",
+          "customer_count": 23,
+          "order_count": 23,
+          "revenue_cents": 202199
+        },
+        {
+          "key": "011",
+          "label": "距末次购买>30天 / 购买≥2次 / 金额≥R$200",
+          "customer_count": 0,
+          "order_count": 0,
+          "revenue_cents": 0
+        },
+        {
+          "key": "010",
+          "label": "距末次购买>30天 / 购买≥2次 / 金额<R$200",
+          "customer_count": 0,
+          "order_count": 0,
+          "revenue_cents": 0
+        },
+        {
+          "key": "001",
+          "label": "距末次购买>30天 / 购买1次 / 金额≥R$200",
+          "customer_count": 0,
+          "order_count": 0,
+          "revenue_cents": 0
+        },
+        {
+          "key": "000",
+          "label": "距末次购买>30天 / 购买1次 / 金额<R$200",
+          "customer_count": 0,
+          "order_count": 0,
+          "revenue_cents": 0
+        }
+      ],
+      "matches_raw": true
+    },
+    {
+      "filters": {
+        "start": "2018-07-01",
+        "end": "2018-07-31",
+        "state": "XX"
+      },
+      "summary": {
+        "customer_count": 0,
+        "new_customers": 0,
+        "returning_customers": 0,
+        "repeat_customers": 0,
+        "repeat_rate": null,
+        "order_count": 0,
+        "revenue_cents": 0,
+        "single_purchase_share": null
+      },
+      "distribution": {
+        "recency_days": {
+          "min": null,
+          "median": null,
+          "p75": null,
+          "max": null
+        },
+        "frequency": {
+          "min": null,
+          "median": null,
+          "p75": null,
+          "max": null
+        },
+        "monetary_cents": {
+          "min": null,
+          "median": null,
+          "p75": null,
+          "max": null
+        }
+      },
+      "frequency_distribution": [],
+      "segments": [
+        {
+          "key": "111",
+          "label": "距末次购买≤30天 / 购买≥2次 / 金额≥R$200",
+          "customer_count": 0,
+          "order_count": 0,
+          "revenue_cents": 0
+        },
+        {
+          "key": "110",
+          "label": "距末次购买≤30天 / 购买≥2次 / 金额<R$200",
+          "customer_count": 0,
+          "order_count": 0,
+          "revenue_cents": 0
+        },
+        {
+          "key": "101",
+          "label": "距末次购买≤30天 / 购买1次 / 金额≥R$200",
+          "customer_count": 0,
+          "order_count": 0,
+          "revenue_cents": 0
+        },
+        {
+          "key": "100",
+          "label": "距末次购买≤30天 / 购买1次 / 金额<R$200",
+          "customer_count": 0,
+          "order_count": 0,
+          "revenue_cents": 0
+        },
+        {
+          "key": "011",
+          "label": "距末次购买>30天 / 购买≥2次 / 金额≥R$200",
+          "customer_count": 0,
+          "order_count": 0,
+          "revenue_cents": 0
+        },
+        {
+          "key": "010",
+          "label": "距末次购买>30天 / 购买≥2次 / 金额<R$200",
+          "customer_count": 0,
+          "order_count": 0,
+          "revenue_cents": 0
+        },
+        {
+          "key": "001",
+          "label": "距末次购买>30天 / 购买1次 / 金额≥R$200",
+          "customer_count": 0,
+          "order_count": 0,
+          "revenue_cents": 0
+        },
+        {
+          "key": "000",
+          "label": "距末次购买>30天 / 购买1次 / 金额<R$200",
+          "customer_count": 0,
+          "order_count": 0,
+          "revenue_cents": 0
+        }
+      ],
+      "matches_raw": true
+    }
+  ]
+}

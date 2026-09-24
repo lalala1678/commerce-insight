@@ -1,0 +1,16 @@
+{
+  "checked_on": "2026-09-19",
+  "metadata_url": "https://www.kaggle.com/api/v1/datasets/list?search=brazilian-ecommerce",
+  "source_url": "https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce",
+  "license_url": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+  "publisher_metadata": {
+    "ref": "olistbr/brazilian-ecommerce",
+    "title": "Brazilian E-Commerce Public Dataset by Olist",
+    "ownerName": "Olist",
+    "licenseName": "CC BY-NC-SA 4.0",
+    "lastUpdated": "2021-10-01T19:08:27.97Z",
+    "currentVersionNumber": 2,
+    "totalBytes": 44717580
+  },
+  "note": "Publisher metadata snapshot; local CSV identity is recorded separately by SHA-256."
+}

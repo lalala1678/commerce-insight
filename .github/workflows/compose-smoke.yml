@@ -1,0 +1,97 @@
+name: Docker Compose smoke
+
+on:
+  push:
+    paths:
+      - '.github/workflows/compose-smoke.yml'
+      - 'compose.yaml'
+      - 'Dockerfile'
+      - '.dockerignore'
+      - 'deploy/**'
+      - 'backend/**'
+      - 'scripts/**'
+      - 'tests/test_etl.py'
+      - 'frontend/**'
+      - 'requirements.txt'
+  pull_request:
+    paths:
+      - '.github/workflows/compose-smoke.yml'
+      - 'compose.yaml'
+      - 'Dockerfile'
+      - '.dockerignore'
+      - 'deploy/**'
+      - 'backend/**'
+      - 'scripts/**'
+      - 'tests/test_etl.py'
+      - 'frontend/**'
+      - 'requirements.txt'
+
+permissions:
+  contents: read
+
+jobs:
+  compose-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      # Temporary CI credentials, used only with synthetic fixture data.
+      MYSQL_PASSWORD: ciSyntheticPassword347829
+      MYSQL_ROOT_PASSWORD: ciSyntheticRootPassword598713
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Create a synthetic Olist-shaped source fixture
+        run: |
+          python -m pip install -r requirements.txt
+          PYTHONPATH=tests python -c "from test_etl import create_olist_fixture; create_olist_fixture('data/raw')"
+      - name: Validate and start the local stack
+        run: |
+          docker compose config --quiet
+          docker compose up -d --build --wait
+      - name: Import twice into MySQL and verify idempotence
+        run: |
+          docker compose exec -T api python -m backend.etl data/raw > /tmp/first-import.json
+          docker compose exec -T api python -m backend.etl data/raw > /tmp/second-import.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          first = json.loads(Path('/tmp/first-import.json').read_text())
+          second = json.loads(Path('/tmp/second-import.json').read_text())
+          assert first['data_version'] == second['data_version']
+          assert first['file_hashes'] == second['file_hashes']
+          assert second['raw_order_count'] == 5
+          assert second['delivered_order_count'] == 3
+          assert second['delivered_revenue_cents'] == 45000
+          PY
+      - name: Check browser entrypoint and same-origin API
+        run: |
+          python - <<'PY'
+          import json
+          from urllib.request import urlopen
+          base = 'http://127.0.0.1:8080'
+          def get_json(path):
+              with urlopen(base + path, timeout=10) as response:
+                  return json.load(response)
+          with urlopen(base + '/', timeout=10) as response:
+              assert '<html' in response.read().decode().lower()
+          health = get_json('/api/health')
+          assert health['status'] == 'ok'
+          assert health['database'] == 'mysql'
+          assert health['warehouse_ready'] is True
+          dashboard = get_json('/api/dashboard?start=2018-07-01&end=2018-07-31')
+          assert dashboard['kpis']['revenue_cents'] == 45000
+          assert dashboard['kpis']['order_count'] == 3
+          assert dashboard['kpis']['item_count'] == 4
+          for path in ('/api/options', '/api/customers', '/api/reports', '/api/orders'):
+              assert get_json(path) is not None, path
+          with urlopen(base + '/docs', timeout=10) as response:
+              assert response.status == 200
+          PY
+      - name: Show logs on failure
+        if: failure()
+        run: docker compose logs --no-color --tail=100
+      - name: Stop containers
+        if: always()
+        run: docker compose down
