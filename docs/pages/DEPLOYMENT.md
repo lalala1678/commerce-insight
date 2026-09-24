@@ -39,3 +39,5 @@ npm run preview
 `.github/workflows/pages.yml` 在 `main` 分支提交或手动触发时，先运行静态快照隐私和哈希测试，再以 Node 22 构建静态版并上传 Pages artifact。GitHub 仓库 Settings → Pages 的 Build and deployment → Source 选择 **GitHub Actions**。工作流需要 `pages: write` 与 `id-token: write` 权限，发布地址预期为 `https://lalala1678.github.io/commerce-insight/`。远程仓库及线上发布是否成功，必须查看实际 Actions 运行与页面请求，不能从本地构建推出。
 
 发布步骤参考 [GitHub Pages 自定义工作流文档](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages) 与 [deploy-pages action](https://github.com/actions/deploy-pages)。
+
+本仓库现已发布，实际工作流、线上浏览器与快照核对结果见[公开发布验收](../RELEASE_VERIFICATION.md)。

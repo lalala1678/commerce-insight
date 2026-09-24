@@ -24,7 +24,7 @@
 
 第6步验收：64 项测试通过，6组原始文件独立核对与四个页面浏览器检查通过。资料：[报告规则与样例](docs/REPORTS.md)、[销售变化案例](docs/reports/CASE_SALES.md)、[履约评价案例](docs/reports/CASE_DELIVERY.md)、[验收记录](docs/reports/VERIFICATION.md)。
 
-第7–8步本地验收：**82 项测试通过**；6 个预设范围的 30 份静态响应与 FastAPI 一致；桌面、手机四页检查通过；三分钟字幕视频已核对时长与关键数字。见 [静态演示验收](docs/pages/VERIFICATION.md)与[视频说明](docs/portfolio/VIDEO.md)。GitHub Pages 与 Docker 容器运行以远程工作流和实际网页访问另行确认。
+第7–8步验收：**82 项测试通过**；6 个预设范围的 30 份静态响应与 FastAPI 一致；三分钟字幕视频已核对时长与关键数字。GitHub Actions 的常规测试、Docker Compose 容器验收和 Pages 发布均通过，在线四页及手机布局已实测。证据见[公开发布验收](docs/RELEASE_VERIFICATION.md)、[静态快照核对](docs/pages/VERIFICATION.md)与[视频说明](docs/portfolio/VIDEO.md)。
 
 ## 学习资料
 
@@ -34,7 +34,7 @@
 - [真实数据来源、获取方式与许可](docs/DATA_SOURCE.md)
 - [第 1 周数据审计](docs/DATA_AUDIT.md)、[数据字典与表关系](docs/DATA_DICTIONARY.md)、[需求与字段映射](docs/BUSINESS_REQUIREMENTS.md)
 - [第 2–4 周验收记录](docs/core/VERIFICATION.md)
-- [静态演示的范围与导出方法](docs/pages/DEPLOYMENT.md)、[三服务 Docker 启动](docs/deploy/COMPOSE.md)
+- [公开发布和线上验收](docs/RELEASE_VERIFICATION.md)、[静态演示的范围与导出方法](docs/pages/DEPLOYMENT.md)、[三服务 Docker 启动](docs/deploy/COMPOSE.md)
 - [简历项目描述与面试问答](docs/portfolio/RESUME_AND_INTERVIEW.md)、[三分钟演示脚本](docs/portfolio/DEMO_SCRIPT.md)
 
 ## 数据如何流到页面
@@ -142,7 +142,7 @@ docker compose up -d --build
 docker compose exec api python -m backend.etl data/raw
 ```
 
-打开 [本地容器网页](http://127.0.0.1:8080/)；同一地址的 `/api/*` 和 `/docs` 会转发到 API。MySQL 不向宿主机开放端口，原始文件只读挂载。完整检查和常见问题见 [Docker 启动说明](docs/deploy/COMPOSE.md)。开发机没有安装 Docker，因此容器运行结果以仓库的 [Docker Compose smoke 工作流](.github/workflows/compose-smoke.yml)为准；原生 MySQL 全量导入已另行实测。
+打开 [本地容器网页](http://127.0.0.1:8080/)；同一地址的 `/api/*` 和 `/docs` 会转发到 API。MySQL 不向宿主机开放端口，原始文件只读挂载。完整检查和常见问题见 [Docker 启动说明](docs/deploy/COMPOSE.md)。开发机没有安装 Docker；[GitHub Actions 容器验收](https://github.com/lalala1678/commerce-insight/actions/runs/36030867207)已在 Ubuntu 上通过合成样例的完整三服务检查，原生 MySQL 全量 Olist 导入另行实测。
 
 ## 检查与复现
 

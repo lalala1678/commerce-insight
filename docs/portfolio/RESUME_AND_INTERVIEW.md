@@ -1,6 +1,6 @@
 # 简历条目与面试准备
 
-下列描述基于已完成的代码、验收和 2018 年 7 月历史样本。发布链接应在 GitHub 仓库与在线页面实际可访问后再填入；数字如随数据版本变化，要同步修改。
+下列描述基于已完成的代码、验收和 2018 年 7 月历史样本。项目源码：[GitHub](https://github.com/lalala1678/commerce-insight)；在线历史演示：[GitHub Pages](https://lalala1678.github.io/commerce-insight/)；[发布验收](../RELEASE_VERIFICATION.md)。数字如随数据版本变化，要同步修改。
 
 ## 可用于简历的项目条目
 

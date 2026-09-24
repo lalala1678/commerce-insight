@@ -41,4 +41,4 @@ docker compose exec api python -m scripts.verify_core_details
 
 ## 当前验证状态
 
-开发机未安装 Docker 命令，故尚未执行真实容器启动；不要把此配置描述成已经在 Docker 上通过验收。当前完成了 Compose YAML 解析、路径和前端构建检查。真实 Olist 全量数据在原生 MySQL 8.0.41 上导入和核对通过，见 [核心验收](../core/VERIFICATION.md)。没有 Docker 的开发机可按根目录 README 中的 SQLite 或原生 MySQL 路径运行同一 ETL、API 和页面。
+开发机未安装 Docker 命令；[GitHub Actions 容器验收](https://github.com/lalala1678/commerce-insight/actions/runs/36030867207)已在 Ubuntu 上实际启动 MySQL、API 和 Nginx，并用合成 Olist 结构样例验证两次导入、商品金额、接口及网页入口。真实 Olist 全量数据在原生 MySQL 8.0.41 上导入和核对通过，见[核心验收](../core/VERIFICATION.md)。两项证据范围不同：CI 证明容器链路可运行，本地原生 MySQL 证明全量数据处理；本机没有容器全量数据实测。没有 Docker 的开发机可按根目录 README 中的 SQLite 或原生 MySQL 路径运行同一 ETL、API 和页面。

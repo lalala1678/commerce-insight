@@ -1,7 +1,7 @@
 # 逐步实施路线图与模型选择
 
 适用：会 Python 和 SQL、前端较弱，目标数据分析／商业分析岗位；每周 10–15 小时，约 8 周。
-进度：第 0–6 步已完成；第 7 步的静态快照、页面与 Compose 配置通过本地检查，远程 Pages 和 Docker 工作流另行验收；第 8 步的简历、面试资料与三分钟演示已完成。履约及评价已随第 3–4 周范围提前接入。证据见 core/VERIFICATION.md、customers/VERIFICATION.md、reports/VERIFICATION.md、pages/VERIFICATION.md 和 portfolio/。可选预测为第 9 步，不属于八周主线的完成条件。
+进度：第 0–8 步主线已完成并公开发布。Pages 页面可访问，常规测试和 Docker Compose 工作流通过；[发布验收](RELEASE_VERIFICATION.md)记录线上证据。履约及评价已随第 3–4 周范围提前接入；阶段证据见 core/VERIFICATION.md、customers/VERIFICATION.md、reports/VERIFICATION.md、pages/VERIFICATION.md 和 portfolio/。可选预测为第 9 步，不属于八周主线的完成条件。
 
 ## 模型怎么选
 
@@ -106,7 +106,7 @@ Sol 中度可以作为长期默认。Terra 用在边界清楚、容易验证的�
 
 > 只完成第 6 步，基于实际计算写两份案例并实现模板周报和历史异常规则。不接 LLM API。所有数字来自数据，建议不写成已实现收益，相关性不写成因果；若数据不支持预设结论，明确说明。
 
-## 第 7 步：别人能看、能运行（本地实现；远程发布另验）
+## 第 7 步：别人能看、能运行（已发布并验收）
 
 任务：验证 MySQL Docker 路径；把相同指标结果导出为限定范围 JSON；前端区分 API 与静态模式；创建 GitHub 仓库并配置 Pages 工作流。
 验收：新环境能按文档启动；静态版只允许有数据的筛选；快照与接口数值一致；不提交原始数据和密码；页面标历史演示，不能说实时。

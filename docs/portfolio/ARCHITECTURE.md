@@ -47,6 +47,6 @@ flowchart LR
 
 **主指标集合**：最终状态为已交付的订单，按下单日归属；成交金额为匹配商品项 `price` 之和，单位 BRL、不含运费。客户用跨订单稳定标识识别。最终状态是历史回看结果，不能解释为当天下单时已经知道订单将交付。完整定义见 [指标口径](../METRICS.md)。
 
-**核对链**：原始 CSV → 分析表及日汇总 → SQL/API → 页面或静态 JSON。全量导入的 99,441 笔原始订单、112,650 条明细、96,478 笔最终已交付订单和 R$ 13,221,498.11 已交付商品金额见 [核心验收记录](../core/VERIFICATION.md)；报告与原始 CSV 的独立核对见 [报告验收](../reports/VERIFICATION.md)。静态快照发布后还应单独记录其与 API 的逐字段对比结果。
+**核对链**：原始 CSV → 分析表及日汇总 → SQL/API → 页面或静态 JSON。全量导入的 99,441 笔原始订单、112,650 条明细、96,478 笔最终已交付订单和 R$ 13,221,498.11 已交付商品金额见[核心验收记录](../core/VERIFICATION.md)；报告与原始 CSV 的独立核对见[报告验收](../reports/VERIFICATION.md)。静态快照与 API 的 30 份响应核对见[静态验收](../pages/VERIFICATION.md)，线上发布见[公开发布验收](../RELEASE_VERIFICATION.md)。
 
 Olist 公开数据由 Olist 发布，许可 [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)；项目进行了清洗、聚合与解释，未修改源文件。来源和复现方式见 [数据来源](../DATA_SOURCE.md)。
